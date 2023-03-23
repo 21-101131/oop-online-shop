@@ -9,6 +9,6 @@ This is the OOP project for EUI which we have chosen to be an online shop
 * Omar Essam
 
 The project is implemented using two different programming languages:
-*java
-*c++
+* java
+* c++
 and using MySQL DB
