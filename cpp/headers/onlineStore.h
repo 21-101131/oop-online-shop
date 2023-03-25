@@ -4,64 +4,82 @@
 #include<string>
 #include<vector>
 
+using namespace std;
+
 class Product {
-	std::string nameofproduct;
-	std::string descreiption;
+	int id;
+	string name;
+	string descreiption;
 	double price;
 	int quantity;
 	float userRating;
 public:
 	Product();
-	Product(std::string nameproduct, std::string Descreiption, double Price, int Quantity, float UserRating);
+	Product(string nameproduct, string Descreiption, double Price, int Quantity, float UserRating);
 	void setPrice(double Price);
-	void setNameofproduct(std::string nameproduct);
-	void setDescreiption(std::string Descreiption);
+	void setName(string nameproduct);
+	void setDescreiption(string Descreiption);
 	void setQuantity(int quant);
 	void setUserRating(float rate);
 	double getPrice();
-	std::string getNameofproduct();
-	std::string getDescreiption();
+	string getNameofproduct();
+	string getDescription();
 	int getQuantity();
 	float getUserRating();
 };
 
 class Cart {
-	std::vector<Product*> products;
+	int id;
+	vector<Product*> products;
+	int userId;
+
 public:
+	// What are the following 2 functions intended to do ?
 	void removeCart(Product* item);
 	void addCart(Product* item);
+
 	double TotalPrice();
+	void add_toCart(Product* item);
+	void remove_fromCart(Product* item);
 };
 
 class User {
-	std::string name;
-	std::string pass;
-	std::string email;
-	std::string userAddress;
+	int id;
+	string name;
+	string pass;
+	string email;
+	string userAddress;
 	//std::string creditCardNumber;
-	Cart usercart;
+	// Cart usercart; * Use CartId Instead
+	int cartId;
+
 public:
 	User();
-	User(std::string Name, std::string Pass, std::string Email);
-	void setName(std::string Name);
-	void setPass(std::string Pass);
-	void setEmail(std::string Email);
-	void setAddress(std::string Address);
-	std::string getName();
-	std::string getPass();
-	std::string getEmail();
-	std::string getAddress();
-	void add_toCart(Product* item);
-	void remove_fromCart(Product* item);
+	User(string Name, string Pass, string Email);
+	void setName(string Name);
+	void setPass(string Pass);
+	void setEmail(string Email);
+	void setAddress(string Address);
+	string getName();
+	string getPass();
+	string getEmail();
+	string getAddress();
+	// The following two functions will be at class Cart
+	// void add_toCart(Product* item);
+	// void remove_fromCart(Product* item);
 	double show_totalPrice();
 };
 
 class payment {
-	User user;
+	// User user;
+	int id;
+	int userId;
 public:
-	void process_payment(User* user, std::string credit_card_number);
-	void apply_discount(User* user, std::string discount_code);
-	//discount_code زى asem100 /العص17 
+	void process_payment(User* user, string credit_card_number);
+	void apply_discount(User* user, string discount_code);
 
+	User user(); // get the user from db
+
+	//discount_code زى asem100 /العص17 
 };
 #endif
