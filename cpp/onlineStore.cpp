@@ -43,8 +43,8 @@ float Product::getUserRating() {
 }
 double Cart::TotalPrice() {
     double total = 0;
-    for (auto product : products) {
-        total += product->getPrice();
+    for (Product* item : products) {
+        total += item->getPrice();
     }
     return total;
 }
@@ -87,7 +87,11 @@ string User::getAddress() {
     return this->userAddress;
 }
 double User::show_totalPrice() {
-    return Cart.TotalPrice();
+   Cart* userCart = getCart();
+	if (userCart) {
+		return userCart->TotalPrice();
+	}
+	return 0.0;
 }
 void payment::process_payment(string credit_card_number) {
     // process the payment using the provided credit card number from dp
