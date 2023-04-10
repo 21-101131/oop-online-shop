@@ -51,9 +51,12 @@ double Cart::TotalPrice() {
 void Cart::add_toCart(Product* item) {
     this->products.push_back(item);
 }
-void Cart::remove_fromCart(Product* item) {
+void Cart::removeCart(Product* item) {
     this->products.erase(remove(this->products.begin(), this->products.end(), item), this->products.end());
 }
+void Cart:: remove_fromCart(int index){
+            items.erase(items.begin() + index);
+        }
 User::User() {
     
 }
