@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #ifndef ONLINESTORE_H
 #define ONLINESTORE_H
 #include<string>
@@ -34,10 +34,6 @@ class Cart {
 	int userId;
 
 public:
-	// What are the following 2 functions intended to do ?
-	void removeCart(Product* item);
-	void addCart(Product* item);
-
 	double TotalPrice();
 	void add_toCart(Product* item);
 	void remove_fromCart(Product* item);
@@ -49,8 +45,7 @@ class User {
 	string pass;
 	string email;
 	string userAddress;
-	//std::string creditCardNumber;
-	// Cart usercart; * Use CartId Instead
+	std::string creditCardNumber;
 	int cartId;
 
 public:
@@ -64,22 +59,14 @@ public:
 	string getPass();
 	string getEmail();
 	string getAddress();
-	// The following two functions will be at class Cart
-	// void add_toCart(Product* item);
-	// void remove_fromCart(Product* item);
 	double show_totalPrice();
 };
 
 class payment {
-	// User user;
 	int id;
 	int userId;
 public:
-	void process_payment(User* user, string credit_card_number);
-	void apply_discount(User* user, string discount_code);
-
-	User user(); // get the user from db
-
-	//discount_code زى asem100 /العص17 
+	void process_payment(string credit_card_number);
+	void apply_discount(string discount_code);
 };
 #endif
