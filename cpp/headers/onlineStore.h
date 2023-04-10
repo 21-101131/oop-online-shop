@@ -37,7 +37,7 @@ public:
 	double TotalPrice();
 	void add_toCart(Product* item);
 	void removeCart(Product* item);
-	void remove_fromCart(Product* item);
+	void remove_fromCart(int index);
 };
 
 class User {
