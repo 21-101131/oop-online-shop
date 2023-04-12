@@ -1,3 +1,4 @@
+package com.test.mypackage;
 import java.sql.*;
 
 public class DBConnection {
