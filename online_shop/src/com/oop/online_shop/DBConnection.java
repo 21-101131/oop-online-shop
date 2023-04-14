@@ -13,14 +13,14 @@ public class DBConnection {
                     "m624G5CJxr"
             );
 
-
-
             System.out.println("Connection Started");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 
     //Statement stmt=con.createStatement();
    // ResultSet rs=stmt.executeQuery("select * from emp");
