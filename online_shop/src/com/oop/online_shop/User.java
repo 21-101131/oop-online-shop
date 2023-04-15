@@ -58,8 +58,10 @@ public class User extends DBConnection{
         return this.creditCardNumber;
     }
 
+    public void setCartId(int cartId){this.cartId = cartId;}
+
     public boolean signUp(){
-        return DBConnection.createUser(this);
+        return createUser(this);
     }
 
 
