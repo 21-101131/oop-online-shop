@@ -1,6 +1,7 @@
 package com.oop.online_shop;
 
-public class User {
+public class User extends DBConnection{
+    public static String tableName = "User";
     private int id;
     private String name;
     private String pass;
@@ -13,12 +14,14 @@ public class User {
         // Default constructor
     }
     
-    public User(String name, String pass, String email) {
+    public User(String name, String pass, String email, String address, String creditCardNumber) {
         this.name = name;
         this.pass = pass;
         this.email = email;
+        this.userAddress = address;
+        this.creditCardNumber = creditCardNumber;
     }
-    
+    public void setId(int id){this.id = id;}
     public void setName(String name) {
         this.name = name;
     }
@@ -36,21 +39,30 @@ public class User {
     }
     
     public String getName() {
-        return name;
+        return this.name;
     }
     
     public String getPass() {
-        return pass;
+        return this.pass;
     }
     
     public String getEmail() {
-        return email;
+        return this.email;
     }
     
     public String getAddress() {
-        return userAddress;
+        return this.userAddress;
     }
-    
+
+    public String getCreditCardNumber() {
+        return this.creditCardNumber;
+    }
+
+    public boolean signUp(){
+        return DBConnection.createUser(this);
+    }
+
+
     public double show_totalPrice() {
         Cart userCart = getCart();
         if (userCart != null) {

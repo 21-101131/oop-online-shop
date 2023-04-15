@@ -2,7 +2,8 @@ package com.oop.online_shop;
 
 import java.util.ArrayList;
 
-public class Cart {
+public class Cart extends DBConnection{
+    public static String tableName = "Cart";
     private int id;
     private ArrayList<Product> products;
     private int userId;

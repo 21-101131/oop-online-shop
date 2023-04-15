@@ -1,6 +1,7 @@
 package com.oop.online_shop;
 
-public class Payment {
+public class Payment extends DBConnection{
+    public static String tableName = "Payment";
     private int id;
     private int userId;
     
