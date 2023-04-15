@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Cart extends DBConnection{
     public static String tableName = "Cart";
     private int id;
-    private ArrayList<Product> products;
+    private ArrayList<Product> products; // this will be a function not an attribute
     private int userId;
 
     public double TotalPrice() {

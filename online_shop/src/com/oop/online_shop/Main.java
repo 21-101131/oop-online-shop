@@ -3,6 +3,8 @@ package com.oop.online_shop;
 public class Main {
 
 	public static void main(String[] args) {
+		// connect the database
+		DBConnection.connect();
 		
 		System.out.println("*********************************************************************");
 		System.out.println("\t\t\tWelcome to TickTock Watches");
@@ -34,7 +36,9 @@ public class Main {
 
 		//System.out.println(testUser.signUp());
 		//System.out.println("end");
-		
+
+		// Disconnect database
+		DBConnection.closeConnection();
 	}
 
 }
