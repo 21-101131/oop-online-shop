@@ -12,7 +12,7 @@ public class Main {
 		System.out.println("Click on the number of the product to add to cart");
 		System.out.println("");
 		for(Product product : Product.getAllProducts()){
-			System.out.println(product.getId() + ": " + product.getName());
+			System.out.println(product.getId() + ") " + product.getName());
 		}
 
 		//Product p1 = new Product("Rolex Daytona");
