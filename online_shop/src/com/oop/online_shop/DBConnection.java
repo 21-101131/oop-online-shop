@@ -140,7 +140,7 @@ public class DBConnection {
             Statement stmt = DBConnection.con.createStatement();
             ResultSet rs = stmt.executeQuery(
                     "select * from " + User.tableName
-                            + " WHERE email="+ user.getEmail().toLowerCase() + " AND pass="+user.getPass());
+                            + " WHERE email='"+ user.getEmail().toLowerCase() + "' AND pass='"+user.getPass()+"'");
 
             if(rs.next()){
                 result = new User(
