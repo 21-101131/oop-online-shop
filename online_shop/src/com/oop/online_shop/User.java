@@ -63,7 +63,10 @@ public class User extends DBConnection{
     public boolean signUp(){
         return createUser(this);
     }
-
+    
+    public User Login() {
+    	return authenticateUser(this);
+    }
 
     public double show_totalPrice() {
         Cart userCart = getCart();
