@@ -78,10 +78,16 @@ public class Main {
     	    	String email = scanner.nextLine();
     	    	u1.setEmail(email);
     	    	
-    	    	System.out.println("Create password");
+    	    	System.out.println("Enter password");
     	    	scanner = new Scanner(System.in);
     	    	String pass = scanner.nextLine();
     	    	u1.setPass(pass);
+    	    	
+    	    	System.out.println("Enter address");
+    	    	scanner = new Scanner(System.in);
+    	    	String address = scanner.nextLine();
+    	    	u1.setAddress(address);	
+    	    	
     	    	u1.signUp();
     	    }
     	}
