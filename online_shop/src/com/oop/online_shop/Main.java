@@ -11,7 +11,8 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		User u1 = new User();
 		DBConnection d1 = new DBConnection();
-		
+		Cart c1 = new Cart();
+		//Beginning of the program 
 		System.out.println("*********************************************************************");
 		System.out.println("\t\t\tWelcome to TickTock Watches");
 		System.out.println("*********************************************************************");
@@ -30,9 +31,12 @@ public class Main {
 	    System.out.print("Chose a number: ");
 	    int number = scanner.nextInt();
 	    //for loop to show the products description
+	    Product p2 = null;
 	    for(Product product : productList) {
+	    	
 	    	if(number == product.getId())
 	    	{
+	    		p2 = product;
 	    		System.out.println("Description: " +product.getDescription());
 	    		System.out.println("Price: " + product.getPrice());
 	    		System.out.println("Quantity: " + product.getQuantity());
@@ -55,10 +59,7 @@ public class Main {
     	    //Redirecting to login 
     	    if(number3 == 1)
     	    {
-    	    	System.out.println("Enter name");
-    	    	scanner = new Scanner(System.in);
-    	    	String name = scanner.nextLine();
-    	    	u1.setName(name);
+    	    	
     	    	
     	    	System.out.println("Enter Email");
     	    	scanner = new Scanner(System.in);
@@ -69,18 +70,17 @@ public class Main {
     	    	scanner = new Scanner(System.in);
     	    	String pass = scanner.nextLine();
     	    	u1.setPass(pass);
+    	    
+    	    	if(u1.Login() != null)
+    	    	{
+    	    		c1.add_toCart(p2);
+    	    		
+    	    	}
     	    	
-    	    	System.out.println("Enter Address");
-    	    	scanner = new Scanner(System.in);
-    	    	String address = scanner.nextLine();
-    	    	u1.setAddress(address);
     	    	
-    	    	System.out.println("Enter credit card number");
-    	    	scanner = new Scanner(System.in);
-    	    	String cc= scanner.nextLine();
-    	    	u1.setCreditCardNumber(cc);
     	    	
-    	    	u1.Login();		
+    	    		
+    	    	
     	    }
     	    //Redirecting to sign up
     	    else if(number3 == 2)
