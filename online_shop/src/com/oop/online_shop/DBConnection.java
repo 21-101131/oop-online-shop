@@ -210,6 +210,19 @@ public class DBConnection {
         }
         return false;
     }
+    protected static Cart getCartById(int cartId){
+        ResultSet cartSet = select(Cart.tableName, "id = "+cartId);
+        try{
+            if(cartSet.next())
+                return new Cart(
+                        cartSet.getInt("id")
+                );
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+
+    }
 
     // PAYMENT FUNCTIONS
     protected static String savePayment(Payment payment){

@@ -11,7 +11,7 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		User u1 = new User();
 		DBConnection d1 = new DBConnection();
-		Cart c1 = new Cart();
+		//Cart c1 = new Cart();
 		//Beginning of the program 
 		System.out.println("*********************************************************************");
 		System.out.println("\t\t\tWelcome to TickTock Watches");
@@ -70,11 +70,13 @@ public class Main {
     	    	scanner = new Scanner(System.in);
     	    	String pass = scanner.nextLine();
     	    	u1.setPass(pass);
-    	    
-    	    	if(u1.Login() != null)
+
+    	    	u1 = u1.Login();
+
+    	    	if(u1 != null)
     	    	{
-    	    		c1.add_toCart(p2);
-    	    		
+					Cart userCart = u1.getUserCart();
+    	    		userCart.add_toCart(p2);
     	    	}
     	    	
     	    	

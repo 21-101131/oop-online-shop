@@ -72,6 +72,10 @@ public class User extends DBConnection{
     	return authenticateUser(this);
     }
 
+    public Cart getUserCart(){
+        return getCartById(this.cartId);
+    }
+
    /*  public double show_totalPrice() {
         Cart userCart = getCart();
         if (userCart != null) {
