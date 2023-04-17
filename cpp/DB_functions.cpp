@@ -22,7 +22,7 @@ const string server = "sql8.freemysqlhosting.net";
 const string username = "sql8612103";
 const string password = "m624G5CJxr";
 
-class DB {
+class functions {
 	static Connection *con;
 
 public:
