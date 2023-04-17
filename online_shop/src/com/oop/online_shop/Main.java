@@ -86,13 +86,13 @@ public class Main {
     	    }
     	}
 	    //Redirects you if you want to continue shopping 
-    	else if(number2 == 2)
+    	/* else if(number2 == 2)
     	{
     		for(Product product : productList){
 				System.out.println(product.getId() + ") " + product.getName());
 				
 			}
-    		scanner = new Scanner(System.in);
+    		 scanner = new Scanner(System.in);
     	    System.out.print("Chose a number: ");
     	    int n = scanner.nextInt();
     	    //for loop to show the products description
@@ -105,11 +105,11 @@ public class Main {
     	    		System.out.println("User Rating: " + product.getUserRating());
     	    		break;
     	    	}
-    	    }
+    	    } 
     	
-    	}
+    	} */
 	    //else statement to redirect you to products if you pressed on a wrong number 
-    	else {
+    	/* else {
     		System.out.println("Invalid Number");
     		System.out.println("Press to 1 to add to cart");
     	    System.out.println("Press to 2 to continue shopping");
@@ -128,7 +128,7 @@ public class Main {
     			}
         	
         	}
-    	}
+    	} */
 	    
 	     
 	    

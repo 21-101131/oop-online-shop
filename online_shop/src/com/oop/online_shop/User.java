@@ -68,13 +68,13 @@ public class User extends DBConnection{
     	return authenticateUser(this);
     }
 
-    public double show_totalPrice() {
+   /*  public double show_totalPrice() {
         Cart userCart = getCart();
         if (userCart != null) {
             return userCart.TotalPrice();
         }
         return 0.0;
-    }
+    } */
 
 	private Cart getCart() {
 		// TODO Auto-generated method stub

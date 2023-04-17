@@ -87,27 +87,39 @@ public:
 public:
 	User();
 	User(string Name, string Pass, string Email);
+	virtual void Greeting() = 0;
 	void setName(string Name);
 	void setPass(string Pass);
 	void setEmail(string Email);
 	void setAddress(string Address);
-	void setId(int id);
-	void setCartId(int cartId);
+	virtual void setId(int id);
+	virtual void setCartId(int cartId);
 	int getId();
 	string getName();
 	string getPass();
 	string getEmail();
 	string getAddress();
 	string getCreditCardNumber();
-	double show_totalPrice();
-	virtual Cart *getCart() = 0;
+	// virtual Cart *getCart() = 0;
 };
+class UnRegisteredUser : public User
+{
+public:
+	UnRegisteredUser();
+	void Greeting() override;
+	RegisteredUser Login();
+	bool signUp();
+};
+
 class RegisteredUser : public User
 {
 public:
+	void setId(int id) override;
+	void setCartId(int cartId) override;
 	RegisteredUser();
+	void Greeting() override;
 	RegisteredUser(string name, string password, std::string email);
-	Cart *getCart() override;
+	Cart *getCart();
 
 private:
 	Cart cart;

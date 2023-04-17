@@ -3,6 +3,7 @@ using namespace std;
 #include <string>
 #include <vector>
 #include <list>
+#include "DB_functions.cpp"
 #include "onlineStore.h"
 Product::Product()
 {
@@ -62,7 +63,7 @@ float Product::getUserRating()
 }
 list<Product> getAllProducts()
 {
-    return this->getProductList;
+    return functions::getProductList();
 }
 /* Watch::Watch() : Product(), brand(""), model("") {}
 Watch::Watch(string name, string description, double price, int quantity, float userRating, std::string brand, std::string model)
@@ -164,7 +165,7 @@ string User::getCreditCardNumber()
     return creditCardNumber;
 }
 
-double User::show_totalPrice()
+/* double User::show_totalPrice()
 {
     Cart *userCart = getCart();
     if (userCart)
@@ -172,9 +173,38 @@ double User::show_totalPrice()
         return userCart->TotalPrice();
     }
     return 0.0;
+} */
+
+UnRegisteredUser::UnRegisteredUser() {}
+RegisteredUser UnRegisteredUser::Login()
+{
+    return authenticateUser(*this);
+}
+bool UnRegisteredUser::signUp()
+{
+    return createUser(*this);
+}
+void UnRegisteredUser::Greeting()
+{
+    cout << "Welcome to our store!";
 }
 
 RegisteredUser::RegisteredUser() {}
+
+void RegisteredUser::setId(int id)
+{
+    User::setId(id);
+}
+
+void RegisteredUser::Greeting()
+{
+    cout << "Welcome " << getName() << "!";
+}
+
+void RegisteredUser::setCartId(int cartId)
+{
+    User::setCartId(cartId);
+}
 
 RegisteredUser::RegisteredUser(string name, string password, std::string email) : User(name, password, email) {}
 
