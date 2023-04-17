@@ -21,9 +21,10 @@ public:
 
 public:
 	Product();
-	Product(string nameproduct, string Descreiption, double Price, int Quantity, float UserRating);
+	Product(int id, string nameproduct, string Descreiption, double Price, int Quantity, float UserRating);
 	virtual double getPrice();
 	virtual string getName();
+	virtual int getId();
 	virtual string getDescription();
 	virtual int getQuantity();
 	virtual float getUserRating();
@@ -92,6 +93,7 @@ public:
 	void setAddress(string Address);
 	void setId(int id);
 	void setCartId(int cartId);
+	int getId();
 	string getName();
 	string getPass();
 	string getEmail();
