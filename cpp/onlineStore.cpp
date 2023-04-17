@@ -7,8 +7,9 @@ using namespace std;
 Product::Product()
 {
 }
-Product::Product(string nameproduct, string Descreiption, double Price, int Quantity, float UserRating)
+Product::Product(int id, string nameproduct, string Descreiption, double Price, int Quantity, float UserRating)
 {
+    this->id = id;
     this->name = nameproduct;
     this->descreiption = Descreiption;
     this->price = Price;
@@ -43,6 +44,10 @@ string Product::getName()
 {
     return this->name;
 }
+int Product::getId()
+{
+    return this->id;
+}
 string Product::getDescription()
 {
     return this->descreiption;
@@ -57,7 +62,7 @@ float Product::getUserRating()
 }
 list<Product> getAllProducts()
 {
-    return this->;
+    return this->getProductList;
 }
 /* Watch::Watch() : Product(), brand(""), model("") {}
 Watch::Watch(string name, string description, double price, int quantity, float userRating, std::string brand, std::string model)
@@ -140,7 +145,10 @@ string User::getPass()
 {
     return pass;
 }
-
+int User::getId()
+{
+    return id;
+}
 string User::getEmail()
 {
     return email;
@@ -153,7 +161,7 @@ string User::getAddress()
 
 string User::getCreditCardNumber()
 {
-    return this->creditCardNumber;
+    return creditCardNumber;
 }
 
 double User::show_totalPrice()
