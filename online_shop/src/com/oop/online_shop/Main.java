@@ -55,14 +55,31 @@ public class Main {
     	    //Redirecting to login 
     	    if(number3 == 1)
     	    {
+    	    	System.out.println("Enter name");
+    	    	scanner = new Scanner(System.in);
+    	    	String name = scanner.nextLine();
+    	    	u1.setName(name);
+    	    	
     	    	System.out.println("Enter Email");
     	    	scanner = new Scanner(System.in);
     	    	String email = scanner.nextLine();
+    	    	u1.setEmail(email);
+    	    	
     	    	System.out.println("Enter Password");
     	    	scanner = new Scanner(System.in);
     	    	String pass = scanner.nextLine();
-    	    	u1.setEmail(email);
     	    	u1.setPass(pass);
+    	    	
+    	    	System.out.println("Enter Address");
+    	    	scanner = new Scanner(System.in);
+    	    	String address = scanner.nextLine();
+    	    	u1.setAddress(address);
+    	    	
+    	    	System.out.println("Enter credit card number");
+    	    	scanner = new Scanner(System.in);
+    	    	String cc= scanner.nextLine();
+    	    	u1.setCreditCardNumber(cc);
+    	    	
     	    	u1.Login();		
     	    }
     	    //Redirecting to sign up
@@ -86,13 +103,18 @@ public class Main {
     	    	System.out.println("Enter address");
     	    	scanner = new Scanner(System.in);
     	    	String address = scanner.nextLine();
-    	    	u1.setAddress(address);	
+    	    	u1.setAddress(address);
+    	    	
+    	    	System.out.println("Enter credit card number");
+    	    	scanner = new Scanner(System.in);
+    	    	String creditCardNumber = scanner.nextLine();
+    	    	u1.setCreditCardNumber(creditCardNumber);
     	    	
     	    	u1.signUp();
     	    }
     	}
 	    //Redirects you if you want to continue shopping 
-    	/* else if(number2 == 2)
+    	else if(number2 == 2)
     	{
     		for(Product product : productList){
 				System.out.println(product.getId() + ") " + product.getName());
@@ -113,9 +135,9 @@ public class Main {
     	    	}
     	    } 
     	
-    	} */
+    	} 
 	    //else statement to redirect you to products if you pressed on a wrong number 
-    	/* else {
+    	else {
     		System.out.println("Invalid Number");
     		System.out.println("Press to 1 to add to cart");
     	    System.out.println("Press to 2 to continue shopping");
@@ -134,7 +156,7 @@ public class Main {
     			}
         	
         	}
-    	} */
+    	} 
 	    
 	     
 	    
