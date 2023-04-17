@@ -9,7 +9,7 @@
 #include "cppconn/exception.h"
 #include "cppconn/prepared_statement.h"
 #include <string>
-#include "headers/onlineStore.h"
+#include "onlineStore.h"
 #include <list>
 #include <cctype>
 //#include "libssl-1_1-x64.dll"
@@ -27,28 +27,14 @@ class functions {
 
 public:
 	    static void connectsql() {
-		sql::Driver* driver;
-		sql::Statement* stmt;
-		sql::PreparedStatement* pstmt;
-		sql::ResultSet* res;
-		try
-		{
-			driver = get_driver_instance();
-		    con = driver->connect(server, username, password);
-		}
-		catch (sql::SQLException e)
-		{
-			cout << "Could not connect to server. Error message: " << e.what() << endl;
-			system("pause");
-			exit(1);
-		}
-	}
-protected:
-	        static ResultSet * select (string tableName, string condition) {
-		    static ResultSet* rs = NULL;
-			try {
-				Statement *stmt = con->createStatement();
-				rs = stmt->executeQuery("select * from " + tableName + ((condition != NULL) ? "WHERE " + condition : ""));
+			sql::Driver* driver;
+			sql::Statement* stmt;
+			sql::PreparedStatement* pstmt;
+			sql::ResultSet* res;
+			try
+			{
+				driver = get_driver_instance();
+				con = driver->connect(server, username, password);
 			}
 			catch (sql::SQLException e)
 			{
@@ -56,9 +42,51 @@ protected:
 				system("pause");
 				exit(1);
 			}
-			return rs;
 		}
+		static void closeConnection() {
+			try {
+				con->close();
+
+			}
+			catch (sql::SQLException e)
+			{
+				cout << "Could not connect to server. Error message: " << e.what() << endl;
+				system("pause");
+				exit(1);
+			}
+		}
+
 protected:
+	        static ResultSet * select (string tableName, string condition) {
+				static ResultSet* rs = NULL;
+				try {
+					Statement *stmt = con->createStatement();
+					rs = stmt->executeQuery("select * from " + tableName + ((condition != NULL) ? "WHERE " + condition : ""));
+				}
+				catch (sql::SQLException e)
+				{
+					cout << "Could not connect to server. Error message: " << e.what() << endl;
+					system("pause");
+					exit(1);
+				}
+				return rs;
+			}
+
+	        static ResultSet * getLastCreatedId (string tableName) {
+				static ResultSet* rs = NULL;
+				try {
+					Statement *stmt = con->createStatement();
+					rs = stmt->executeQuery("select id from " + tableName + "ORDER BY id DESC FETCH FIRST 1 ROW ONLY;");
+				}
+				catch (sql::SQLException e)
+				{
+					cout << "Could not connect to server. Error message: " << e.what() << endl;
+					system("pause");
+					exit(1);
+				}
+				return rs;
+			}
+
 	        static list<Product> getProductsInCart(int cartId) {
 				list<Product> productList ;
 				ResultSet* productsInCartSet = select(ProductInCart::tableName, "cartId = " + cartId);
@@ -68,6 +96,7 @@ protected:
 						if (productSet->next())
 							productList.push_back(
 								 Product(
+									 productSet->getInt("id"),
 									 productSet->getString("name"),
 									productSet->getString("description"),
 									 productSet->getDouble("price"),
@@ -90,7 +119,7 @@ protected:
 
 				return productList;
 			}
-protected:
+
 	static boolean isProductInCart(int cartId, int productId) {
 				try {
 					string ss = "cartId = " +to_string (cartId)+ "and productId = " + to_string (productId);// maybe error
@@ -104,7 +133,7 @@ protected:
 				}
 				return false;
 			}
-protected:
+
 	static boolean addProductInCart(int cartId, int productId, int count) {
 		try {
 			if (!isProductInCart(cartId, productId)) {
@@ -131,7 +160,7 @@ protected:
 		}
 		return true;
 	}
-	protected:
+
 		static boolean removeFromCart(int cartId, int productId) {
 			try {
 			PreparedStatement* pstmt = con->prepareStatement("DELETE FROM " + ProductInCart::tableName + " WHERE cartId = ? AND productId = ?;");
@@ -148,23 +177,50 @@ protected:
 			}
 		return false;
 	}
-		protected:
-			static User* authenticateUser(User user) {
-				User* result;
+
+		static list<Product> getProductList() {
+
+			list<Product> productList;
+			ResultSet* rs = select(Product::tableName, NULL);
+			try {
+				while (rs->next()) {
+					productList.push_back(
+						Product(
+							rs->getInt("id"),
+							rs->getString("name"),
+							rs->getString("description"),
+							rs->getDouble("price"),
+							rs->getInt("quantity"),
+							rs->getDouble("userRating")
+						)
+					);
+				}
+			}
+			catch (SQLException e) {
+				cout << "Could not connect to server. Error message: " << e.what() << endl;
+				system("pause");
+				exit(1);
+			}
+
+			return productList;
+		}
+
+			static RegisteredUser authenticateUser(User user) {
+				RegisteredUser result;
 				try {
 					Statement* stmt = con->createStatement();
 					ResultSet* rs = stmt->executeQuery(
 						"select * from " + User::tableName
-						+ " WHERE email=" + user.getEmail() + " AND pass=" + user.getPass());
+						+ " WHERE email='" + user.getEmail() + "' AND pass='" + user.getPass()+"'");
 
 					if (rs->next()) {
-						result = new User(
+						result = RegisteredUser(
 							rs->getString("Name"),
 							rs->getString("Pass"),
 							rs->getString("Email")
 						);
-						result->setId(rs->getInt("id"));
-						result->setCartId(rs->getInt("cartId"));
+						result.setId(rs->getInt("id"));
+						result.setCartId(rs->getInt("cartId"));
 
 						return result;
 					}
@@ -175,9 +231,8 @@ protected:
 					system("pause");
 					exit(1);
 				}
-				return NULL;
 			}
-			protected:
+
 				static boolean createUser(User user) {
 
 				try {
@@ -185,12 +240,12 @@ protected:
 					string insertSql = "INSERT INTO " + Cart::tableName + " ()" +
 						" VALUES ()";
 
-					PreparedStatement* pstmt = con->prepareStatement(insertSql, Statement->RETURN_GENERATED_KEYS);
+					PreparedStatement* pstmt = con->prepareStatement(insertSql);
 
 					int cartId = 0;
 
 					if (pstmt->executeUpdate() > 0) {
-						ResultSet *rs = pstmt->getGeneratedKeys();
+						ResultSet *rs = getLastCreatedId(Cart::tableName);
 						if (rs->next()) {
 							cartId = rs->getInt(1);
 						}
@@ -202,7 +257,7 @@ protected:
 					insertSql = "INSERT INTO " + User::tableName + " (name, pass, email, userAdress, creditCardNumber, cartId)" +
 						" VALUES (?, ?, ?, ?, ?, ?)";
 
-					pstmt =con->prepareStatement(insertSql, Statement->RETURN_GENERATED_KEYS);
+					pstmt =con->prepareStatement(insertSql);
 
 					pstmt->setString(1, user.getName());
 					pstmt->setString(2, user.getPass());
@@ -213,7 +268,7 @@ protected:
 
 					int numRowsAffected = pstmt->executeUpdate();
 					if (numRowsAffected > 0) {
-						ResultSet *rs = pstmt->getGeneratedKeys();
+						ResultSet *rs = getLastCreatedId(User::tableName);
 						if (rs->next()) {
 							user.setId(rs->getInt(1));
 						}
@@ -231,7 +286,7 @@ protected:
 			}
 
 		
-		protected:
+
 			static string savePayment(Payment payment) {
 			ResultSet* userSet = select(User::tableName, "id = " + payment.getUserId());
 			try {
@@ -262,19 +317,6 @@ protected:
 			}
 			return "Unknown Error!";
 		}
-			public:
-				static void closeConnection() {
-				try {
-					con->close();
-
-				}
-				catch (sql::SQLException e)
-				{
-					cout << "Could not connect to server. Error message: " << e.what() << endl;
-					system("pause");
-					exit(1);
-				}
-			}
 
 
 
