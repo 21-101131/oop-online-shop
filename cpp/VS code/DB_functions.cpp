@@ -9,7 +9,6 @@
 #include "cppconn/exception.h"
 #include "cppconn/prepared_statement.h"
 #include <string>
-// #include "DB_functions.h"
 #include "onlineStore.h"
 #include <list>
 #include <vector>
@@ -284,7 +283,7 @@ string functions::savePayment(T payment)
 	{
 		if (userSet->next())
 		{
-			vector<Product> products = getProductsInCart(userSet->getInt("cartId"));
+			vector<Product> products = getProductsInCart(userSet->getInt(7));
 			if (!(products.size() > 0))
 				return "No products in cart!";
 

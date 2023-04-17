@@ -5,6 +5,8 @@ using namespace std;
 #include <list>
 // #include "DB_functions.cpp"
 #include "onlineStore.h"
+// #include "DB_functions.h"
+
 Product::Product()
 {
 }
@@ -63,8 +65,7 @@ float Product::getUserRating()
 }
 vector<Product> getAllProducts()
 {
-    vector<Product> test  = functions::getProductList();
-    return test;
+    return functions::getProductList<Product>();
 }
 /* Watch::Watch() : Product(), brand(""), model("") {}
 Watch::Watch(string name, string description, double price, int quantity, float userRating, std::string brand, std::string model)
@@ -177,10 +178,12 @@ string User::getCreditCardNumber()
 } */
 
 UnRegisteredUser::UnRegisteredUser() {}
+
 RegisteredUser UnRegisteredUser::Login()
 {
-    return authenticateUser(*this);
+    return authenticateUser<RegisteredUser, UnRegisteredUser>(*this);
 }
+
 bool UnRegisteredUser::signUp()
 {
     return createUser(*this);

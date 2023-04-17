@@ -82,7 +82,7 @@ public:
 	virtual void setDescription(string description);
 	virtual void setQuantity(int quantity);
 	virtual void setUserRating(float rating);
-	static list<Product> getAllProducts();
+	static vector<Product> getAllProducts();
 };
 /* class Watch : public Product, public functions
 {
