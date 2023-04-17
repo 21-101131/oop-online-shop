@@ -5,11 +5,11 @@
 #include <sqlext.h>
 #include <sql.h>
 #include "mysql_connection.h"
-#include <cppconn/driver.h>
-#include <cppconn/exception.h>
-#include <cppconn/prepared_statement.h>
+#include "cppconn/driver.h"
+#include "cppconn/exception.h"
+#include "cppconn/prepared_statement.h"
 #include <string>
-#include "onlineStore.cpp"
+#include "headers/onlineStore.h"
 #include <list>
 #include <cctype>
 //#include "libssl-1_1-x64.dll"
