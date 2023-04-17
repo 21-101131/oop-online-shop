@@ -14,7 +14,8 @@ class Product
 	double price;
 	int quantity;
 	float userRating;
-	public:
+
+public:
 	static string tableName;
 
 public:
@@ -36,7 +37,8 @@ class Watch : public Product
 {
 	string brand;
 	string model;
-	public:
+
+public:
 	static string tableName;
 
 public:
@@ -57,7 +59,8 @@ class Cart
 	int id;
 	vector<Product *> products;
 	int userId;
-	public:
+
+public:
 	static string tableName;
 
 public:
@@ -75,7 +78,8 @@ class User
 	string userAddress;
 	string creditCardNumber;
 	int cartId;
-	public:
+
+public:
 	static string tableName;
 
 public:
@@ -106,7 +110,8 @@ class Payment
 {
 	int id;
 	int userId;
-	public:
+
+public:
 	static string tableName;
 
 public:
