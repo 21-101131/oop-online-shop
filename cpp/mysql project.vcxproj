@@ -138,6 +138,7 @@
     <None Include="..\..\..\..\Downloads\mysql-connector-c++-8.0.32-winx64\mysql-connector-c++-8.0.32-winx64\lib64\libssl-1_1-x64.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DB_functions.h" />
     <ClInclude Include="onlineStore.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
