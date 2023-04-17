@@ -3,7 +3,7 @@ using namespace std;
 #include <string>
 #include <vector>
 #include <list>
-#include "DB_functions.cpp"
+// #include "DB_functions.cpp"
 #include "onlineStore.h"
 Product::Product()
 {
@@ -61,9 +61,10 @@ float Product::getUserRating()
 {
     return this->userRating;
 }
-list<Product> getAllProducts()
+vector<Product> getAllProducts()
 {
-    return functions::getProductList();
+    vector<Product> test  = functions::getProductList();
+    return test;
 }
 /* Watch::Watch() : Product(), brand(""), model("") {}
 Watch::Watch(string name, string description, double price, int quantity, float userRating, std::string brand, std::string model)

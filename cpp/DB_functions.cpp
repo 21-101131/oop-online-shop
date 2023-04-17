@@ -11,6 +11,7 @@
 #include <string>
 #include "onlineStore.h"
 #include <list>
+#include <vector>
 #include <cctype>
 // #include "libssl-1_1-x64.dll"
 using namespace std;
@@ -93,9 +94,9 @@ protected:
 		return rs;
 	}
 
-	static list<Product> getProductsInCart(int cartId)
+	static vector<Product> getProductsInCart(int cartId)
 	{
-		list<Product> productList;
+		vector<Product> productList;
 		ResultSet *productsInCartSet = select(ProductInCart::tableName, "cartId = " + cartId);
 		try
 		{
@@ -192,10 +193,10 @@ protected:
 		return false;
 	}
 
-	static list<Product> getProductList()
+	public:static vector<Product> getProductList()
 	{
 
-		list<Product> productList;
+		vector<Product> productList;
 		ResultSet *rs = select(Product::tableName, NULL);
 		try
 		{
@@ -221,36 +222,10 @@ protected:
 		return productList;
 	}
 
-	static RegisteredUser authenticateUser(UnRegisteredUser user)
-	{
-		RegisteredUser result;
-		try
-		{
-			Statement *stmt = con->createStatement();
-			ResultSet *rs = stmt->executeQuery(
-				"select * from " + User::tableName + " WHERE email='" + user.getEmail() + "' AND pass='" + user.getPass() + "'");
+	protected:
+		static RegisteredUser authenticateUser(UnRegisteredUser user);
 
-			if (rs->next())
-			{
-				result = RegisteredUser(
-					rs->getString("Name"),
-					rs->getString("Pass"),
-					rs->getString("Email"));
-				result.setId(rs->getInt("id"));
-				result.setCartId(rs->getInt("cartId"));
-
-				return result;
-			}
-		}
-		catch (sql::SQLException e)
-		{
-			cout << "Could not connect to server. Error message: " << e.what() << endl;
-			system("pause");
-			exit(1);
-		}
-	}
-
-	static boolean createUser(User user)
+	static boolean createUser(UnRegisteredUser user)
 	{
 
 		try
@@ -315,7 +290,7 @@ protected:
 		{
 			if (userSet->next())
 			{
-				list<Product> products = getProductsInCart(userSet->getInt("cartId"));
+				vector<Product> products = getProductsInCart(userSet->getInt("cartId"));
 				if (!(products.size() > 0))
 					return "No products in cart!";
 
@@ -345,17 +320,27 @@ protected:
 		return "Unknown Error!";
 	}
 };
-int main()
-{
-	sql::Driver *driver;
-	sql::Connection *con;
-	sql::Statement *stmt;
-	sql::PreparedStatement *pstmt;
 
+RegisteredUser functions::authenticateUser(UnRegisteredUser user)
+{
+	RegisteredUser result;
 	try
 	{
-		driver = get_driver_instance();
-		con = driver->connect(server, username, password);
+		Statement *stmt = con->createStatement();
+		ResultSet *rs = stmt->executeQuery(
+			"select * from " + User::tableName + " WHERE email='" + user.getEmail() + "' AND pass='" + user.getPass() + "'");
+
+		if (rs->next())
+		{
+			result = RegisteredUser(
+				rs->getString("Name"),
+				rs->getString("Pass"),
+				rs->getString("Email"));
+			result.setId(rs->getInt("id"));
+			result.setCartId(rs->getInt("cartId"));
+
+			return result;
+		}
 	}
 	catch (sql::SQLException e)
 	{
@@ -363,5 +348,4 @@ int main()
 		system("pause");
 		exit(1);
 	}
-	return 0;
 }
