@@ -1,36 +1,48 @@
 #pragma once
 #ifndef ONLINESTORE_H
 #define ONLINESTORE_H
-#include<string>
-#include<vector>
+#include "DB_functions.cpp"
+#include <string>
+#include <vector>
 
 using namespace std;
 
-class Product {
+class Product : public functions
+{
 	int id;
 	string name;
 	string descreiption;
 	double price;
 	int quantity;
 	float userRating;
+
+public:
+	static string tableName;
+
 public:
 	Product();
-	Product(string nameproduct, string Descreiption, double Price, int Quantity, float UserRating);
-	virtual ~Product();
+	Product(int id, string nameproduct, string Descreiption, double Price, int Quantity, float UserRating);
 	virtual double getPrice();
-	virtual string getName() ;
+	virtual string getName();
+	virtual int getId();
 	virtual string getDescription();
-	virtual int getQuantity() ;
+	virtual int getQuantity();
 	virtual float getUserRating();
 	virtual void setPrice(double price);
 	virtual void setName(string name);
 	virtual void setDescription(string description);
 	virtual void setQuantity(int quantity);
 	virtual void setUserRating(float rating);
+	static list<Product> getAllProducts();
 };
-class Watch : public Product {
+/* class Watch : public Product, public functions
+{
 	string brand;
 	string model;
+
+public:
+	static string tableName;
+
 public:
 	Watch();
 	Watch(std::string name, std::string description, double price, int quantity, float userRating, std::string brand, std::string model);
@@ -38,19 +50,29 @@ public:
 	string getModel();
 	void setBrand(string brand);
 	void setModel(string model);
+}; */
+class ProductInCart : public functions
+{
+public:
+	static string tableName;
 };
-class Cart {
+class Cart : public functions
+{
 	int id;
-	vector<Product*> products;
+	vector<Product *> products;
 	int userId;
 
 public:
-	vector<Product*>& getProducts();
+	static string tableName;
+
+public:
+	vector<Product *> &getProducts();
 	double TotalPrice();
-	void add_toCart(Product* item);
-	void remove_fromCart(Product* item);
+	void add_toCart(Product *item);
+	void remove_fromCart(Product *item);
 };
-class User {
+class User : public functions
+{
 	int id;
 	string name;
 	string pass;
@@ -60,32 +82,60 @@ class User {
 	int cartId;
 
 public:
+	static string tableName;
+
+public:
 	User();
 	User(string Name, string Pass, string Email);
+	virtual void Greeting() = 0;
 	void setName(string Name);
 	void setPass(string Pass);
 	void setEmail(string Email);
 	void setAddress(string Address);
+	virtual void setId(int id);
+	virtual void setCartId(int cartId);
+	int getId();
 	string getName();
 	string getPass();
 	string getEmail();
 	string getAddress();
-	double show_totalPrice();
-	virtual Cart* getCart() = 0;
+	string getCreditCardNumber();
+	// virtual Cart *getCart() = 0;
 };
-class RegisteredUser : public User {
+class UnRegisteredUser : public User
+{
 public:
+	UnRegisteredUser();
+	void Greeting() override;
+	RegisteredUser Login();
+	bool signUp();
+};
+
+class RegisteredUser : public User
+{
+public:
+	void setId(int id) override;
+	void setCartId(int cartId) override;
 	RegisteredUser();
+	void Greeting() override;
 	RegisteredUser(string name, string password, std::string email);
-	Cart* getCart() override;
+	Cart *getCart();
+
 private:
 	Cart cart;
 };
-class payment {
+class Payment : public functions
+{
 	int id;
 	int userId;
+	double value;
+
+public:
+	static string tableName;
+
 public:
 	void process_payment(string credit_card_number);
-	void apply_discount(string discount_code);
+	int getUserId();
+	int getValue();
 };
 #endif
