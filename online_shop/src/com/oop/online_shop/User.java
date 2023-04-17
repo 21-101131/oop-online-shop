@@ -38,6 +38,10 @@ public class User extends DBConnection{
         this.userAddress = address;
     }
     
+    public void setCreditCardNumber(String creditCardNumber) {
+    	this.creditCardNumber = creditCardNumber;
+    }
+    
     public String getName() {
         return this.name;
     }
