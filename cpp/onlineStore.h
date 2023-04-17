@@ -1,12 +1,13 @@
 #pragma once
 #ifndef ONLINESTORE_H
 #define ONLINESTORE_H
+#include "DB_functions.cpp"
 #include <string>
 #include <vector>
 
 using namespace std;
 
-class Product
+class Product : public functions
 {
 	int id;
 	string name;
@@ -21,7 +22,6 @@ public:
 public:
 	Product();
 	Product(string nameproduct, string Descreiption, double Price, int Quantity, float UserRating);
-	virtual ~Product();
 	virtual double getPrice();
 	virtual string getName();
 	virtual string getDescription();
@@ -32,8 +32,9 @@ public:
 	virtual void setDescription(string description);
 	virtual void setQuantity(int quantity);
 	virtual void setUserRating(float rating);
+	static list<Product> getAllProducts();
 };
-class Watch : public Product
+/* class Watch : public Product, public functions
 {
 	string brand;
 	string model;
@@ -48,13 +49,13 @@ public:
 	string getModel();
 	void setBrand(string brand);
 	void setModel(string model);
-};
-class ProductInCart
+}; */
+class ProductInCart : public functions
 {
 public:
 	static string tableName;
 };
-class Cart
+class Cart : public functions
 {
 	int id;
 	vector<Product *> products;
@@ -69,7 +70,7 @@ public:
 	void add_toCart(Product *item);
 	void remove_fromCart(Product *item);
 };
-class User
+class User : public functions
 {
 	int id;
 	string name;
@@ -89,10 +90,13 @@ public:
 	void setPass(string Pass);
 	void setEmail(string Email);
 	void setAddress(string Address);
+	void setId(int id);
+	void setCartId(int cartId);
 	string getName();
 	string getPass();
 	string getEmail();
 	string getAddress();
+	string getCreditCardNumber();
 	double show_totalPrice();
 	virtual Cart *getCart() = 0;
 };
@@ -106,16 +110,18 @@ public:
 private:
 	Cart cart;
 };
-class Payment
+class Payment : public functions
 {
 	int id;
 	int userId;
+	double value;
 
 public:
 	static string tableName;
 
 public:
 	void process_payment(string credit_card_number);
-	void apply_discount(string discount_code);
+	int getUserId();
+	int getValue();
 };
 #endif

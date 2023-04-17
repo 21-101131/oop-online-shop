@@ -1,7 +1,8 @@
-using namespace std;
 #include <iostream>
+using namespace std;
 #include <string>
 #include <vector>
+#include <list>
 #include "onlineStore.h"
 Product::Product()
 {
@@ -54,7 +55,11 @@ float Product::getUserRating()
 {
     return this->userRating;
 }
-Watch::Watch() : Product(), brand(""), model("") {}
+list<Product> getAllProducts()
+{
+    return this->;
+}
+/* Watch::Watch() : Product(), brand(""), model("") {}
 Watch::Watch(string name, string description, double price, int quantity, float userRating, std::string brand, std::string model)
     : Product(name, description, price, quantity, userRating), brand(brand), model(model) {}
 string Watch::getBrand()
@@ -74,7 +79,7 @@ void Watch::setBrand(string brand)
 void Watch::setModel(string model)
 {
     this->model = model;
-}
+} */
 double Cart::TotalPrice()
 {
     double total = 0;
@@ -116,6 +121,16 @@ void User::setAddress(string address)
     this->userAddress = address;
 }
 
+void User::setId(int id)
+{
+    this->id = id;
+}
+
+void User::setCartId(int cartId)
+{
+    this->cartId = cartId;
+}
+
 string User::getName()
 {
     return name;
@@ -134,6 +149,11 @@ string User::getEmail()
 string User::getAddress()
 {
     return userAddress;
+}
+
+string User::getCreditCardNumber()
+{
+    return this->creditCardNumber;
 }
 
 double User::show_totalPrice()
@@ -155,14 +175,20 @@ Cart *RegisteredUser::getCart()
     return &cart;
 }
 
-void payment::process_payment(string credit_card_number)
+void Payment::process_payment(string credit_card_number)
 {
     // process the payment using the provided credit card number from dp
     // dp
 }
 
-void payment::apply_discount(string discount_code)
+int Payment::getUserId()
 {
+    return this->userId;
+}
+
+int Payment::getValue()
+{
+    return this->value;
 }
 
 string Product::tableName = "Products";
