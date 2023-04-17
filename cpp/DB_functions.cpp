@@ -19,8 +19,8 @@ using namespace sql;
 
 //for demonstration only. never save your password in the code!
 const string server = "sql8.freemysqlhosting.net";
-const string username = "sql8612103";
-const string password = "m624G5CJxr";
+const string username = "sql8613256";
+const string password = "hwIw3Fjflu";
 
 class functions {
 	static Connection *con;
@@ -340,39 +340,5 @@ int main()
 		system("pause");
 		exit(1);
 	}
-	//cout << "3abood hacker te2eel"; 
-
-	////please create database "quickstartdb" ahead of time
-
-
-	pstmt = con->prepareStatement("SELECT * FROM Products;");
-
-	sql::ResultSet *result = pstmt->executeQuery();
-	
-	
-	//cout << "Finished dropping table (if existed)" << endl;
-	//stmt->execute("CREATE TABLE inventory (id serial PRIMARY KEY, name VARCHAR(50), quantity INTEGER);");
-	//cout << "Finished creating table" << endl;
-	//delete stmt;
-
-	//pstmt = con->prepareStatement("INSERT INTO inventory(name, quantity) VALUES(?,?)");
-	//pstmt->setString(1, "banana");
-	//pstmt->setInt(2, 150);
-	//pstmt->execute();
-	//cout << "One row inserted." << endl;
-
-	//pstmt->setString(1, "orange");
-	//pstmt->setInt(2, 154);
-	//pstmt->execute();
-	//cout << "One row inserted." << endl;
-
-	//pstmt->setString(1, "apple");
-	//pstmt->setInt(2, 100);
-	//pstmt->execute();
-	//cout << "One row inserted." << endl;
-
-	//delete pstmt;
-	//delete con;
-	//system("pause");
 	return 0;
 }
