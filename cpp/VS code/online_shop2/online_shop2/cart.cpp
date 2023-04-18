@@ -1,4 +1,5 @@
 #include "cart.h"
+#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -8,6 +9,8 @@
 using namespace std;
 
 Cart::Cart() {}
+
+Cart::Cart(int _id): id(_id) {}
 
 // Getter functions
 int Cart::getId() const {
@@ -25,6 +28,7 @@ bool Cart::add_toCart(Product selectedProduct, int quantity) {
 
 // Functions for storing and reading carts from file
 void Cart::writeData(const vector<Cart>& carts) {
+	/*
 	ofstream file(filename);
 
 	if (file.is_open()) {
@@ -41,9 +45,25 @@ void Cart::writeData(const vector<Cart>& carts) {
 	else {
 		throw runtime_error("Unable to open file for writing.");
 	}
+	*/
+	ofstream file(filename);
+
+	if (file.is_open()) {
+		file << "id\n"; // write header row
+
+		for (auto& cart : carts) {
+			file << cart.id << "\n";
+		}
+
+		file.close();
+	}
+	else {
+		cout << "Unable to open file";
+	}
 }
 
 vector<Cart> Cart::readData() {
+	/*
 	vector<Cart> carts;
 
 	ifstream file(filename);
@@ -77,6 +97,35 @@ vector<Cart> Cart::readData() {
 	}
 	else {
 		throw runtime_error("Unable to open file for reading.");
+	}
+
+	return carts;
+	*/
+	vector<Cart> carts;
+	ifstream file(filename);
+	string line;
+
+	if (file.is_open()) {
+		getline(file, line); // skip header row
+
+		while (getline(file, line)) {
+			stringstream ss(line);
+			string field;
+			vector<string> fields;
+
+			while (getline(ss, field, ',')) {
+				fields.push_back(field);
+			}
+
+			int id = stoi(fields[0]);
+
+			carts.push_back(Cart(id));
+		}
+
+		file.close();
+	}
+	else {
+		cout << "Unable to open file";
 	}
 
 	return carts;

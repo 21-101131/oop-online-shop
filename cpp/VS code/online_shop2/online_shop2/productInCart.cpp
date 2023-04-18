@@ -1,5 +1,6 @@
 #include "productInCart.h"
 
+#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
@@ -7,6 +8,10 @@
 using namespace std;
 
 const std::string ProductInCart::filename = "productincart.csv";
+
+ProductInCart::ProductInCart(int _id, int _cartId, int _productId, int _count):
+id(_id), cartId(_cartId), productId(_productId), count(_count)
+{}
 
 // Getter functions
 int ProductInCart::getId() const {
@@ -48,6 +53,7 @@ void ProductInCart::setCount(int newCount) {
 
 // Functions for storing and reading product items in a cart from file
 void ProductInCart::writeData(const std::vector<ProductInCart>& items) {
+    /*
     std::ofstream file(filename);
 
     if (file.is_open()) {
@@ -67,9 +73,25 @@ void ProductInCart::writeData(const std::vector<ProductInCart>& items) {
     else {
         throw std::runtime_error("Unable to open file for writing.");
     }
+    */
+    ofstream file(filename);
+
+    if (file.is_open()) {
+        file << "id,cartId,productId,count\n"; // write header row
+
+        for (const auto& productInCart : items) {
+            file << productInCart.id << "," << productInCart.cartId << "," << productInCart.productId << "," << productInCart.count << "\n";
+        }
+
+        file.close();
+    }
+    else {
+        cout << "Unable to open file";
+    }
 }
 
 std::vector<ProductInCart> ProductInCart::readData() {
+    /*
     std::vector<ProductInCart> items;
 
     std::ifstream file(ProductInCart::filename);
@@ -95,4 +117,36 @@ std::vector<ProductInCart> ProductInCart::readData() {
     }
 
     return items;
+    */
+    vector<ProductInCart> productsInCart;
+    ifstream file(filename);
+    string line;
+
+    if (file.is_open()) {
+        getline(file, line); // skip header row
+
+        while (getline(file, line)) {
+            stringstream ss(line);
+            string field;
+            vector<string> fields;
+
+            while (getline(ss, field, ',')) {
+                fields.push_back(field);
+            }
+
+            int id = stoi(fields[0]);
+            int cartId = stoi(fields[1]);
+            int productId = stoi(fields[2]);
+            int count = stoi(fields[3]);
+
+            productsInCart.push_back(ProductInCart(id, cartId, productId, count));
+        }
+
+        file.close();
+    }
+    else {
+        cout << "Unable to open file";
+    }
+
+    return productsInCart;
 }
