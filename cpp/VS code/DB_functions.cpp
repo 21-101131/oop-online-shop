@@ -1,4 +1,25 @@
-#include <stdlib.h>
+#include <iostream>
+#include <fstream>
+#include "onlineStore.h"
+void Product::readData(fstream &fin)
+{
+	fin >> ;
+	if (fin.eof())
+	{
+		std::cout << "End of file reached.";
+		return 0;
+	}
+
+	else if (!(fin.good))
+	{
+		std::cout << "Input failure.";
+		exit(EXIT_FAILURE);
+	}
+}
+void DB::writeData(fstream &fout)
+{
+}
+/* #include <stdlib.h>
 #include <iostream>
 #include <windows.h>
 #include <sqltypes.h>
@@ -342,4 +363,4 @@ R functions::authenticateUser(U user)
 		exit(1);
 	}
 	return result;
-}
+} */

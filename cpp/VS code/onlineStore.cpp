@@ -63,7 +63,7 @@ float Product::getUserRating()
 }
 vector<Product> getAllProducts()
 {
-    return functions::getProductList<Product>();
+    return // functions::getProductList<Product>();
 }
 /* Watch::Watch() : Product(), brand(""), model("") {}
 Watch::Watch(string name, string description, double price, int quantity, float userRating, std::string brand, std::string model)

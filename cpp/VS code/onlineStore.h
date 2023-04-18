@@ -1,7 +1,7 @@
-#pragma once
+// #pragma once
 #ifndef ONLINESTORE_H
 #define ONLINESTORE_H
-
+#include <fstream>
 // #ifndef DB_FUNCTIONS_H
 // #define DB_FUNCTIONS_H
 
@@ -22,7 +22,7 @@ using namespace sql;
 // const string username = "sql8613256";
 // const string password = "hwIw3Fjflu";
 
-class functions
+/* class functions
 {
 	static Connection *con;
 
@@ -52,11 +52,16 @@ protected:
 
 	template <typename R, typename U>
 	static R authenticateUser(U user);
-};
+}; */
 
 // #endif // DB_FUNCTIONS_H
-
-class Product : public functions
+class DB
+{
+protected:
+	virtual void readData(fstream &) = 0;
+	virtual void writeData(fstream &) = 0;
+};
+class Product : public DB
 {
 	int id;
 	string name;
@@ -64,6 +69,7 @@ class Product : public functions
 	double price;
 	int quantity;
 	float userRating;
+	fstream *product;
 
 public:
 	static string tableName;
@@ -100,16 +106,18 @@ public:
 	void setBrand(string brand);
 	void setModel(string model);
 }; */
-class ProductInCart : public functions
+class ProductInCart : public DB
 {
 public:
 	static string tableName;
+	// fstream *Productincart;
 };
-class Cart : public functions
+class Cart
 {
 	int id;
 	vector<Product *> products;
 	int userId;
+	fstream *cart;
 
 public:
 	static string tableName;
@@ -120,7 +128,7 @@ public:
 	void add_toCart(Product *item);
 	void remove_fromCart(Product *item);
 };
-class User : public functions
+class User : public DB
 {
 	int id;
 	string name;
@@ -149,10 +157,11 @@ public:
 	string getEmail();
 	string getAddress();
 	string getCreditCardNumber();
+	fstream *user;
 	// virtual Cart *getCart() = 0;
 };
 
-class RegisteredUser : public User
+class RegisteredUser : public User, public DB
 {
 public:
 	void setId(int id) override;
@@ -166,7 +175,7 @@ private:
 	Cart cart;
 };
 
-class UnRegisteredUser : public User
+class UnRegisteredUser : public User, public DB
 {
 public:
 	UnRegisteredUser();
@@ -175,11 +184,12 @@ public:
 	bool signUp();
 };
 
-class Payment : public functions
+class Payment : public DB
 {
 	int id;
 	int userId;
 	double value;
+	fstream *payment;
 
 public:
 	static string tableName;
