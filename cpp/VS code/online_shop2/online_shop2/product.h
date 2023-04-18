@@ -38,7 +38,7 @@ public:
     void setPrice(double newPrice);
     void setQuantity(int newQuantity);
     void setUserRating(float newUserRating);
-    bool decreaseProductQuantity(int productID, int num);
+    bool decreaseProductQuantity(int num);
     // Functions for storing and reading products from file
     static void writeData(const vector<Product> &products);
     static vector<Product> readData();
