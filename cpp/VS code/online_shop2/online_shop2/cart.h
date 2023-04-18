@@ -6,30 +6,31 @@
 
 #include "productInCart.h"
 
-//#include "db.h"
+// #include "db.h"
 
 using namespace std;
 
 // class Cart: DB {
-class Cart {
-    private:
-        int id;
-        int userId;
-        vector<int> productIds;
-        static const string filename;
+class Cart
+{
+private:
+    int id;
+    int userId;
+    vector<int> productIds;
+    static const string filename;
 
-    public:
-        Cart();
-        // Getter functions
-        int getId() const;
+public:
+    Cart();
+    // Getter functions
+    int getId() const;
 
-		// Setter functions
-		void setId(int newId);
+    int getUserId() const;
+    // Setter functions
+    void setId(int newId);
 
-        bool add_toCart(Product selectedProduct, int quantity);
+    bool add_toCart(Product selectedProduct, int quantity);
 
-		// Functions for storing and reading carts from file
-		static void writeData(const vector<Cart>& carts);
-		static vector<Cart> readData();
-
+    // Functions for storing and reading carts from file
+    static void writeData(const vector<Cart> &carts);
+    static vector<Cart> readData();
 };
