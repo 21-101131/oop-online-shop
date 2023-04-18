@@ -6,7 +6,7 @@
 
 using namespace std;
 
-const std::string ProductInCart::filename = "productincart.txt";
+const std::string ProductInCart::filename = "productincart.csv";
 
 // Getter functions
 int ProductInCart::getId() const {

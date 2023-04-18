@@ -17,6 +17,7 @@ private:
     static const string filename;
 
 public:
+    Payment(int id, int userId, double value);
     // Getter functions
     int getId() const;
     int getUserId() const ;
