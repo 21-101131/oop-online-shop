@@ -10,11 +10,9 @@
 
 using namespace std;
 
-// class Cart: DB {
-class Cart
+class Cart: public BaseEntity
 {
 private:
-    int id;
     int userId;
     vector<int> productIds;
     static const string filename;
@@ -23,12 +21,9 @@ public:
     Cart();
     Cart(int id);
     // Getter functions
-    int getId() const;
-
     int getUserId() const;
-    // Setter functions
-    void setId(int newId);
 
+    // Setter functions
     bool add_toCart(Product selectedProduct, int quantity);
 
     // Functions for storing and reading carts from file

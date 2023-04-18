@@ -5,13 +5,14 @@
 #include <sstream>
 // #include "db.h"
 
+#include "payment.h"
+
 using namespace std;
 
 // class Product: DB {
-class Product
+class Product: public BaseEntity
 {
 private:
-    int id;
     string name;
     string description;
     double price;
@@ -23,7 +24,6 @@ public:
     Product();
     Product(int id, string nameproduct, string Descreiption, double Price, int Quantity, float UserRating);
     // Getter functions
-    int getId() const;
     string getName() const;
     string getDescription() const;
     double getPrice() const;
@@ -31,7 +31,6 @@ public:
     float getUserRating() const;
 
     // Setter functions
-    void setId(int newId);
     void setName(const string &newName);
     void setDescription(const string &newDescription);
     void setPrice(double newPrice);

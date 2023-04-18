@@ -11,9 +11,8 @@ using namespace std;
 string Product::filename = "products.csv";
 
 Product::Product() {}
-Product::Product(int id, string nameproduct, string Descreiption, double Price, int Quantity, float UserRating)
+Product::Product(int id, string nameproduct, string Descreiption, double Price, int Quantity, float UserRating):BaseEntity(id)
 {
-	this->id = id;
 	this->name = nameproduct;
 	this->description = Descreiption;
 	this->price = Price;
@@ -21,11 +20,6 @@ Product::Product(int id, string nameproduct, string Descreiption, double Price, 
 	this->userRating = UserRating;
 }
 // Getter functions
-int Product::getId() const
-{
-	return id;
-}
-
 string Product::getName() const
 {
 	return name;
@@ -52,11 +46,6 @@ float Product::getUserRating() const
 }
 
 // Setter functions
-void Product::setId(int newId)
-{
-	id = newId;
-}
-
 void Product::setName(const string &newName)
 {
 	name = newName;
@@ -82,16 +71,19 @@ void Product::setUserRating(float newUserRating)
 	userRating = newUserRating;
 }
 
-bool Product::decreaseProductQuantity(int productId, int num)
+bool Product::decreaseProductQuantity(int num)
 {
 	vector<Product> products = readData();
+	int counter = 0;
 	for (Product product : products)
 	{
-		if (productId == product.id)
+		if (this->getId() == product.getId())
 		{
-			product.quantity -= num;
+			products[counter].quantity -= num;
+			writeData(products);
 			return true;
 		}
+		counter++;
 	}
 	return false;
 }

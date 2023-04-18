@@ -9,9 +9,8 @@
 using namespace std;
 
 //class User:DB {
-class User {
+class User : public BaseEntity{
 private:
-    int id;
     string name;
     string password;
     string email;
@@ -22,7 +21,6 @@ private:
 
 public:
 		// Getter functions
-		int getId() const;
         string getName() const;
         string getPassword() const;
         string getEmail() const;
@@ -31,9 +29,7 @@ public:
         int getCartId() const;
 
         // Setter functions
-        void setId(int newId);
-
-        void setName(const string& newName);
+        void setName(const string newName);
 
         void setPassword(const string& newPassword);
 
@@ -45,7 +41,7 @@ public:
 
         void setCartId(int newCartId);
 
-        User* login();
+        void login(User* res);
         bool signUp();
         Cart getUserCart();
 

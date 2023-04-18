@@ -8,28 +8,30 @@
 
 using namespace std;
 
-Cart::Cart() {}
+Cart::Cart():BaseEntity() {}
 
-Cart::Cart(int _id) : id(_id) {}
+Cart::Cart(int _id) : BaseEntity(_id) {}
 
 // Getter functions
-int Cart::getId() const
-{
-	return id;
-}
 int Cart::getUserId() const
 {
 	return userId;
 }
 
 // Setter functions
-void Cart::setId(int newId)
-{
-	id = newId;
-}
-
 bool Cart::add_toCart(Product selectedProduct, int quantity)
-{
+{	
+	vector<ProductInCart> productsInCart = ProductInCart::readData();
+
+	int largestId = 0;
+	for (auto p : productsInCart) 
+		if (p.getId() > largestId) largestId = p.getId();
+	
+	ProductInCart newP(largestId+1, this->getId(), selectedProduct.getId(), quantity);
+
+	productsInCart.push_back(newP);
+	ProductInCart::writeData(productsInCart);
+
 	return true;
 }
 
@@ -65,7 +67,7 @@ void Cart::writeData(const vector<Cart> &carts)
 
 		for (auto &cart : carts)
 		{
-			file << cart.id << "\n";
+			file << cart.getId() << "\n";
 		}
 
 		file.close();
@@ -78,6 +80,7 @@ void Cart::writeData(const vector<Cart> &carts)
 
 vector<Cart> Cart::readData()
 {
+	/*
 	vector<Cart> carts;
 
 	ifstream file(filename);
@@ -120,7 +123,7 @@ vector<Cart> Cart::readData()
 	}
 
 	return carts;
-	* /
+	*/
 		vector<Cart> carts;
 	ifstream file(filename);
 	string line;

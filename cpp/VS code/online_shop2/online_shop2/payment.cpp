@@ -4,15 +4,11 @@
 #include <vector>
 #include <string>
 #include <stdexcept>
-#include "payment.h"
+//#include "payment.h"
 #include "productInCart.h"
-Payment::Payment(int _id, int _userId, double _value) : id(_id), userId(_userId), value(_value){};
-// Getter functions
-int Payment::getId() const
-{
-	return id;
-}
 
+Payment::Payment(int _id, int _userId, double _value) : BaseEntity(_id), userId(_userId), value(_value){};
+// Getter functions
 int Payment::getUserId() const
 {
 	return userId;
@@ -24,11 +20,6 @@ double Payment::getValue() const
 }
 
 // Setter functions
-void Payment::setId(int newId)
-{
-	id = newId;
-}
-
 void Payment::setUserId(int newUserId)
 {
 	userId = newUserId;
@@ -69,7 +60,7 @@ void Payment::writeData(const vector<Payment> &payments)
 
 		for (const auto &payment : payments)
 		{
-			file << payment.id << "," << payment.userId << "," << payment.value << "\n";
+			file << payment.getId() << "," << payment.userId << "," << payment.value << "\n";
 		}
 
 		file.close();
@@ -144,7 +135,7 @@ vector<Payment> Payment::readData()
 
 	return payments;
 }
-string Payment::savePayment(Payment payment, int cartId)
+string Payment::savePayment(int cartId)
 {
 	// vector <Payment> payments = readData();
 	vector<ProductInCart> ProductsinCart = ProductInCart::readData();
@@ -159,5 +150,6 @@ string Payment::savePayment(Payment payment, int cartId)
 			count++;
 	}
 	ProductInCart::writeData(ProductsinCart);
+	return "Payment saved successfully!";
 }
 const string Payment::filename = "payments.csv";

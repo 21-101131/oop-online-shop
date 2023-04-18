@@ -1,15 +1,12 @@
 #include <iostream>
 #include "user.h"
 
+
 using namespace std;
 
-string User::filename = "users.txt";
+string User::filename = "users.csv";
 
 // Getter functions
-int User::getId() const {
-	return id;
-}
-
 string User::getName() const {
 	return name;
 }
@@ -35,11 +32,7 @@ int User::getCartId() const {
 }
 
 // Setter functions
-void User::setId(int newId) {
-	id = newId;
-}
-
-void User::setName(const string& newName) {
+void User::setName(const string newName) {
 	name = newName;
 }
 
@@ -63,30 +56,81 @@ void User::setCartId(int newCartId) {
 	cartId = newCartId;
 }
 
-User* User::login() {
-	User* u = new User();
-	return u;
+void User::login(User* res) {
+	vector<User> users = readData();
+	for (auto user : users) {
+		if (user.email == email && user.password == password) {
+			res->cartId = user.cartId;
+		}
+	}
+	res = nullptr;
 }
 
 bool User::signUp(){
+	vector<Cart> carts = Cart::readData();
+	int largestId = 0;
+	for (auto c : carts) 
+		if (c.getId() > largestId) largestId = c.getId();
+	
+	cartId = largestId + 1;
+	Cart newCart(cartId);
+	carts.push_back(newCart);
+	Cart::writeData(carts);
+
+	vector<User> users = readData();
+	users.push_back(*this);
+	writeData(users);
+	
 	return true;
 }
 
 Cart User::getUserCart(){
+	vector<Cart> carts = Cart::readData();
+
+	for (auto cart : carts) {
+		if (cart.getId() == cartId) {
+			return cart;
+		}
+	}
 	Cart c;
 	return c;
 }
 
 vector<ProductInCart> User::getProductsInCart(){
-	vector<ProductInCart> v;
-	return v;
+	vector<ProductInCart> productsInCart = ProductInCart::readData();
+	vector<ProductInCart> result;
+	vector<Product> products = Product::readData();
+	for (auto productInCart : productsInCart) {
+		if (productInCart.getCartId() == cartId) {
+			for (auto product : products) {
+				if (product.getId() == productInCart.getProductId()) {
+					productInCart.setProduct(product);
+					break;
+				}
+			}
+			result.push_back(productInCart);
+		}
+	}
+	return result;
 }
 
 string User::pay(float total){
-	return "";
+	Payment p(0, this->getId(), (double)total);
+	return p.savePayment(cartId);
 }
 
 bool User::removeFromCart(int productId) {
+	vector<ProductInCart> productsInCart = ProductInCart::readData();
+	int i = 0;
+	for (auto p : productsInCart) {
+		if (p.getCartId() == cartId && p.getProductId() == productId) {
+			productsInCart.erase(productsInCart.begin() + i);
+			break;
+		}
+		i++;
+	}
+	ProductInCart::writeData(productsInCart);
+
 	return true;
 }
 
@@ -119,7 +163,7 @@ void User::writeData(const vector<User>& users) {
 	if (csvFile) {
 		csvFile << "id,name,pass,email,user_address,credit_card_number,cart_id" << endl;
 		for (const auto& user : users) {
-			csvFile << user.id << ","
+			csvFile << user.getId() << ","
 				<< user.name << ","
 				<< user.password << ","
 				<< user.email << ","
@@ -178,7 +222,7 @@ vector<User> User::readData() {
 			// Parse the CSV line into User attributes
 			User user;
 			getline(ss, token, ',');
-			user.id = stoi(token);
+			user.setId(stoi(token));
 			getline(ss, user.name, ',');
 			getline(ss, user.password, ',');
 			getline(ss, user.email, ',');

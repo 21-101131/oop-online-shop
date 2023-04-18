@@ -6,9 +6,8 @@
 //#include "db.h"
 using namespace std;
 //class ProductInCart: DB{
-class ProductInCart{
+class ProductInCart: public BaseEntity{
 private:
-    int id;
     int cartId;
     int productId;
     int count;
@@ -18,7 +17,6 @@ private:
 public:
     ProductInCart(int id, int cartId, int productId, int count);
     // Getter functions
-    int getId() const;
 
     int getCartId() const;
 
@@ -28,13 +26,12 @@ public:
     Product getProduct() const;
 
     // Setter functions
-    void setId(int newId);
-
     void setCartId(int newCartId);
 
     void setProductId(int newProductId);
 
     void setCount(int newCount);
+    void setProduct(Product p);
 
     // Functions for storing and reading product items in a cart from file
     //static void writeData(const std::vector<ProductInCart>& items);

@@ -18,7 +18,7 @@ class Main {
 		for (ProductInCart productInCart : productsInCart) {
 			Product product = productInCart.getProduct();
 			double productTotal = productInCart.getCount() * product.getPrice();
-			cout << counter + ") " << productInCart.getCount() << " of " << product.getName() << "\t\t" << productInCart.getCount() << " × " << product.getPrice() << " = " << productTotal << "$" << endl;
+			cout << counter << ") " << productInCart.getCount() << " of " << product.getName() << "\t\t" << productInCart.getCount() << " * " << product.getPrice() << " = " << productTotal << "$" << endl;
 			total += productTotal;
 			counter++;
 		}
@@ -51,33 +51,35 @@ public:
 	static User* user;
 
 	static void userLogin(){
-		cout << "Login Please:";
+		cout << "Login Please:" << endl;
 		do {
 			user = new User();
 
-			cout << "Enter Email: ";
+			cout << "Enter Email: " << endl;
 			string email;
 			cin >> email;
 			user->setEmail(email);
 
-			cout << "Enter Password: ";
+			cout << "Enter Password: " << endl;
 			string pass;
 			cin >> pass;
 			user->setPassword(pass);
 
-			user = user->login();
+			user->login(user);
 
-			if (!user) cout << "Wrong email or password. Try Again: ";
+			if (!user) cout << "Wrong email or password. Try Again: " << endl;
 		} while (!user);
-		cout << "Logged in successfully!\n";
+		cout << "Logged in successfully!\n" << endl;
 	}
 
 	static void userSignup(){
+		user = new User();
+
 		cout << "Write your full name" << endl;
 		string name;
 		cin >> name;
 		user->setName(name);
-
+				
 		cout << "Write your Email" << endl;
 		string email;
 		cin >> email;
@@ -106,8 +108,6 @@ public:
 
 	private:
 	static void userLoginOrSignup(){
-		user = new User();
-
 		cout << "Press 1 to Login" << endl;
 		cout << "Press 2 to Signup" << endl;
 
@@ -118,7 +118,7 @@ public:
 		else if (dec == 2) userSignup();
 	}
 	static void userAddToCart(Product selectedProduct){
-		cout << selectedProduct.getQuantity() + " Left in stock." << endl;
+		cout << selectedProduct.getQuantity() << " Left in stock." << endl;
 		cout << "How many do you want? " << endl;
 
 		// Make sure that the user select valid quantity value
@@ -133,7 +133,7 @@ public:
 
 		Cart userCart = user->getUserCart();
 		if (userCart.add_toCart(selectedProduct, wantedQuantity)) {
-			cout << selectedProduct.getName() + " Added to Cart Successfully" << endl;
+			cout << selectedProduct.getName() << " Added to Cart Successfully" << endl;
 		} else cout << "Unknown error adding product to cart" << endl;
 	}
 
@@ -262,30 +262,5 @@ int main() {
 
 	Product::writeData(v);
 
-UnRegisteredUser u1; */
-
-/*
-	vector<Product> productList = Product::readData();
-	// For loop to display all products from database
-	for (Product product : productList)
-	{
-		cout << product.getId() << ") " << product.getName() << endl;
-	}
-int number;
-cout << "Choose a number: ";
-cin >> number;
-for (Product product : productList)
-{
-    if (number == product.getId())
-    {
-        cout << "Description: " << product.getDescription();
-        cout << "Price: " << product.getPrice();
-        cout << "Quantity: " << product.getQuantity();
-        cout << "User Rating: " << product.getUserRating();
-        break;
-    }
-}
-cout << "Press to 1 to add to cart" << endl;
-cout << "Press to 2 to continue shopping" << endl;
-*/
+	*/
 }

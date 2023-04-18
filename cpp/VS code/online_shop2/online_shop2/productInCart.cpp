@@ -10,14 +10,10 @@ using namespace std;
 const std::string ProductInCart::filename = "productincart.csv";
 
 ProductInCart::ProductInCart(int _id, int _cartId, int _productId, int _count):
-id(_id), cartId(_cartId), productId(_productId), count(_count)
+BaseEntity(_id), cartId(_cartId), productId(_productId), count(_count)
 {}
 
 // Getter functions
-int ProductInCart::getId() const {
-    return id;
-}
-
 int ProductInCart::getCartId() const {
     return cartId;
 }
@@ -35,10 +31,6 @@ Product ProductInCart::getProduct() const {
 }
 
 // Setter functions
-void ProductInCart::setId(int newId) {
-    id = newId;
-}
-
 void ProductInCart::setCartId(int newCartId) {
     cartId = newCartId;
 }
@@ -49,6 +41,10 @@ void ProductInCart::setProductId(int newProductId) {
 
 void ProductInCart::setCount(int newCount) {
     count = newCount;
+}
+
+void ProductInCart::setProduct(Product p) {
+    product = p;
 }
 
 // Functions for storing and reading product items in a cart from file
@@ -80,7 +76,7 @@ void ProductInCart::writeData(const std::vector<ProductInCart>& items) {
         file << "id,cartId,productId,count\n"; // write header row
 
         for (const auto& productInCart : items) {
-            file << productInCart.id << "," << productInCart.cartId << "," << productInCart.productId << "," << productInCart.count << "\n";
+            file << productInCart.getId() << "," << productInCart.cartId << "," << productInCart.productId << "," << productInCart.count << "\n";
         }
 
         file.close();

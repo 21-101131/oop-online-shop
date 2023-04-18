@@ -139,14 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="baseEntity.h" />
     <ClInclude Include="cart.h" />
-    <ClInclude Include="db.h" />
     <ClInclude Include="payment.h" />
     <ClInclude Include="product.h" />
     <ClInclude Include="productInCart.h" />
     <ClInclude Include="user.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="baseEntity.cpp" />
     <ClCompile Include="cart.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="payment.cpp" />
