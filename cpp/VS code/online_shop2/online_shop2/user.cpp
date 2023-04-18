@@ -1,5 +1,7 @@
+#include <iostream>
 #include "user.h"
 
+using namespace std;
 
 string User::filename = "users.txt";
 
@@ -90,6 +92,7 @@ bool User::removeFromCart(int productId) {
 
 // Functions for storing and reading users from file
 void User::writeData(const vector<User>& users) {
+	/*
 	ofstream file(filename);
 
 	if (file.is_open()) {
@@ -111,11 +114,28 @@ void User::writeData(const vector<User>& users) {
 	}
 	else {
 		throw runtime_error("Unable to open file for writing.");
+	}*/
+	ofstream csvFile(filename);
+	if (csvFile) {
+		csvFile << "id,name,pass,email,user_address,credit_card_number,cart_id" << endl;
+		for (const auto& user : users) {
+			csvFile << user.id << ","
+				<< user.name << ","
+				<< user.password << ","
+				<< user.email << ","
+				<< user.userAddress << ","
+				<< user.creditCardNumber << ","
+				<< user.cartId << endl;
+		}
+		csvFile.close();
+	}
+	else {
+		cout << "Error opening file: " << filename << endl;
 	}
 }
 
 vector<User> User::readData() {
-	vector<User> users;
+	/*vector<User> users;
 
 	ifstream file(User::filename);
 
@@ -139,6 +159,41 @@ vector<User> User::readData() {
 	}
 	else {
 		throw runtime_error("Unable to open file for reading.");
+	}
+
+	return users;
+	*/
+	vector<User> users;
+	ifstream csvFile(filename);
+	if (csvFile) {
+		// Ignore the header line
+		string header;
+		getline(csvFile, header);
+
+		string line;
+		while (getline(csvFile, line)) {
+			stringstream ss(line);
+			string token;
+
+			// Parse the CSV line into User attributes
+			User user;
+			getline(ss, token, ',');
+			user.id = stoi(token);
+			getline(ss, user.name, ',');
+			getline(ss, user.password, ',');
+			getline(ss, user.email, ',');
+			getline(ss, user.userAddress, ',');
+			getline(ss, user.creditCardNumber, ',');
+			getline(ss, token, ',');
+			user.cartId = stoi(token);
+
+			users.push_back(user);
+		}
+
+		csvFile.close();
+	}
+	else {
+		cout << "Error opening file: " << filename << endl;
 	}
 
 	return users;
