@@ -21,6 +21,7 @@ private:
 
 public:
     Cart();
+    Cart(int id);
     // Getter functions
     int getId() const;
 

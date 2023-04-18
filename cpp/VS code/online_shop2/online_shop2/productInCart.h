@@ -16,6 +16,7 @@ private:
     static const std::string filename;
 
 public:
+    ProductInCart(int id, int cartId, int productId, int count);
     // Getter functions
     int getId() const;
 
