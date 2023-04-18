@@ -5,6 +5,11 @@ public class Payment extends DBConnection{
     private int id;
     private float value;
     private int userId;
+
+    public Payment(float value, int userId){
+        this.value = value;
+        this.userId = userId;
+    }
     
     public void process_payment(String creditCardNumber) {
         

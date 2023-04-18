@@ -20,8 +20,8 @@ public class Cart extends DBConnection{
         return totalPrice;
     }
 
-    public void add_toCart(Product item) {
-        products.add(item);
+    public boolean add_toCart(Product item, int count) {
+        return addProductInCart(this.id, item.getId(), count);
     }
 
     public void removeCart(Product item) {

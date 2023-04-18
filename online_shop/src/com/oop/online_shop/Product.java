@@ -60,7 +60,13 @@ public class Product extends DBConnection {
         this.userRating = userRating;
     }
 
+    public boolean decreaseProductQuantity(int num){
+        return DBConnection.decreaseProductQuantity(this.id, num);
+    }
+
+
     public static List<Product> getAllProducts(){
         return getProductList();
     }
+
 }

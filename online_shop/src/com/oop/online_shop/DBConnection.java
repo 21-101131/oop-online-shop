@@ -26,7 +26,7 @@ public class DBConnection {
         ResultSet rs = null;
         try{
             Statement stmt = DBConnection.con.createStatement();
-            rs = stmt.executeQuery("select * from " + tableName + ((condition != null) ? "WHERE " + condition : ""));
+            rs = stmt.executeQuery("select * from " + tableName + ((condition != null) ? " WHERE " + condition : ""));
         }
         catch (Exception e){
             e.printStackTrace();
@@ -35,22 +35,25 @@ public class DBConnection {
     }
 
     // CART FUNCTIONS
-    protected static List<Product> getProductsInCart(int cartId){
-        List<Product> productList = new ArrayList<>();
+    protected static List<ProductInCart> productsInCart(int cartId){
+        List<ProductInCart> productList = new ArrayList<>();
         ResultSet productsInCartSet = select(ProductInCart.tableName, "cartId = "+cartId);
         try{
             while(productsInCartSet.next()) {
-                ResultSet productSet = select(Product.tableName, "id = " + productsInCartSet.getInt("id"));
+                ResultSet productSet = select(Product.tableName, "id = " + productsInCartSet.getInt("productId"));
                 if(productSet.next())
                     productList.add(
-                            new Product(
-                                    productSet.getInt("id"),
-                                    productSet.getString("name"),
-                                    productSet.getString("description"),
-                                    productSet.getDouble("price"),
-                                    productSet.getInt("quantity"),
-                                    productSet.getFloat("userRating")
-                            )
+                            new ProductInCart(
+                                new Product(
+                                        productSet.getInt("id"),
+                                        productSet.getString("name"),
+                                        productSet.getString("description"),
+                                        productSet.getDouble("price"),
+                                        productSet.getInt("quantity"),
+                                        productSet.getFloat("userRating")
+                                ),
+                                    productsInCartSet.getInt("count")
+                        )
                     );
             }
         }
@@ -131,6 +134,26 @@ public class DBConnection {
         }
 
         return productList;
+    }
+    protected static boolean decreaseProductQuantity(int productId, int num){
+        try {
+            // Create SQL update statement
+            String updateQuery = "UPDATE " + Product.tableName +" SET quantity = quantity - ? WHERE id = ?";
+
+            // Create prepared statement with parameters
+            PreparedStatement pstmt = con.prepareStatement(updateQuery);
+            pstmt.setString(1, ""+num);
+            pstmt.setString(2, ""+productId);
+
+            // Execute update statement
+            int rowsAffected = pstmt.executeUpdate();
+
+            return rowsAffected > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     // USERS FUNCTIONS
@@ -225,11 +248,11 @@ public class DBConnection {
     }
 
     // PAYMENT FUNCTIONS
-    protected static String savePayment(Payment payment){
+    protected static String savePayment(Payment payment, int cartId){
         ResultSet userSet = select(User.tableName, "id = " + payment.getUserId());
         try{
             if(userSet.next()) {
-                List<Product> products = getProductsInCart(userSet.getInt("cartId"));
+                List<ProductInCart> products = productsInCart(userSet.getInt("cartId"));
                 if(!(products.size() > 0)) return "No products in cart!";
 
                 String insertSql = "INSERT INTO " + Payment.tableName + " (value, userId)" +
@@ -242,8 +265,14 @@ public class DBConnection {
 
                 int numRowsAffected = pstmt.executeUpdate();
                 if (numRowsAffected > 0) {
+
+                    pstmt = con.prepareStatement("DELETE FROM " + ProductInCart.tableName + " WHERE cartId = ?;");
+                    pstmt.setInt(1, cartId);
+                    pstmt.executeUpdate();
+
                     return "Payment processed successfully";
                 }
+
             } else return "User does not exist!";
         }
         catch (Exception e){
@@ -255,7 +284,7 @@ public class DBConnection {
     public static void closeConnection() {
         try {
             DBConnection.con.close();
-            System.out.println("Connection Closed");
+            //System.out.println("Connection Closed");
         } catch(Exception e) {
             e.printStackTrace();
         }

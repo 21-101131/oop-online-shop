@@ -1,5 +1,7 @@
 package com.oop.online_shop;
 
+import java.util.List;
+
 public class User extends DBConnection{
     public static String tableName = "User";
     private int id;
@@ -61,6 +63,7 @@ public class User extends DBConnection{
     public String getCreditCardNumber() {
         return this.creditCardNumber;
     }
+    public int getCartId(){return this.cartId;}
 
     public void setCartId(int cartId){this.cartId = cartId;}
 
@@ -76,6 +79,19 @@ public class User extends DBConnection{
         return getCartById(this.cartId);
     }
 
+    public List<ProductInCart> getProductsInCart(){
+        return productsInCart(this.cartId);
+    }
+
+    public String pay(float value){
+        Payment p = new Payment(value, this.id);
+        return savePayment(p, cartId);
+    }
+
+    public boolean removeFromCart(int productId){
+        return DBConnection.removeFromCart(this.cartId, productId);
+    }
+
    /*  public double show_totalPrice() {
         Cart userCart = getCart();
         if (userCart != null) {
@@ -83,11 +99,6 @@ public class User extends DBConnection{
         }
         return 0.0;
     } */
-
-	private Cart getCart() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
 
