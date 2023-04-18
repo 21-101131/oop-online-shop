@@ -5,6 +5,7 @@
 using namespace std;
 int main()
 {
+    /*
     UnRegisteredUser u1;
     cout << "*********************************************************************" << endl
          << "\t\t\tWelcome to TickTock Watches" << endl
@@ -84,4 +85,7 @@ int main()
             u1.signUp();
         }
     }
+    */
+
+
 }

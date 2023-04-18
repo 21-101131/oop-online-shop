@@ -10,6 +10,7 @@ using namespace std;
 Product::Product()
 {
 }
+
 Product::Product(int id, string nameproduct, string Descreiption, double Price, int Quantity, float UserRating)
 {
     this->id = id;

@@ -1,8 +1,38 @@
 #include <iostream>
 #include <fstream>
 #include "onlineStore.h"
-void Product::readData(fstream &fin)
+
+/*void Product::readData(fstream& fin)
 {
+	vector<Product> readDataFromFile() {
+		vector<Product> products;
+		ifstream infile("data.txt", ios::in);
+		if (!infile) {
+			cerr << "Failed to open the file!" << endl;
+			return products;
+		}
+
+		string name, description, brand, model;
+		double price;
+		int quantity;
+		float userRating;
+
+		while (infile >> name >> description >> price >> quantity >> userRating) {
+			char nextChar = infile.peek();
+			if (nextChar == '\n') {
+				// Product object
+				products.push_back(Product(name, description, price, quantity, userRating));
+			}
+			else {
+				// Watch object
+				infile >> brand >> model;
+				products.push_back(Watch(name, description, price, quantity, userRating, brand, model));
+			}
+		}
+
+		infile.close();
+		return products;
+	}
 	fin >> ;
 	if (fin.eof())
 	{
@@ -16,9 +46,10 @@ void Product::readData(fstream &fin)
 		exit(EXIT_FAILURE);
 	}
 }
-void DB::writeData(fstream &fout)
+void Product::writeData(fstream &fout)
 {
 }
+*/
 /* #include <stdlib.h>
 #include <iostream>
 #include <windows.h>

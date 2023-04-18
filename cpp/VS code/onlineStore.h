@@ -6,16 +6,16 @@
 // #define DB_FUNCTIONS_H
 
 #include <iostream>
-#include <windows.h>
-#include "mysql_connection.h"
-#include "cppconn/driver.h"
-#include "cppconn/exception.h"
-#include "cppconn/prepared_statement.h"
+// #include <windows.h>
+// #include "mysql_connection.h"
+// #include "cppconn/driver.h"
+// #include "cppconn/exception.h"
+// #include "cppconn/prepared_statement.h"
 #include <string>
 #include <vector>
 
 using namespace std;
-using namespace sql;
+// using namespace sql;
 
 // for demonstration only. never save your password in the code!
 // const string server = "sql8.freemysqlhosting.net";
@@ -89,6 +89,7 @@ public:
 	virtual void setQuantity(int quantity);
 	virtual void setUserRating(float rating);
 	static vector<Product> getAllProducts();
+	static vector<Product> readData(const string &filename);
 };
 /* class Watch : public Product, public functions
 {

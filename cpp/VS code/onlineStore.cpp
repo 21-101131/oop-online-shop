@@ -3,6 +3,7 @@ using namespace std;
 #include <string>
 #include <vector>
 #include <list>
+#include <stdexcept>
 #include "onlineStore.h"
 
 Product::Product()
@@ -61,10 +62,43 @@ float Product::getUserRating()
 {
     return this->userRating;
 }
+
+vector<Product> Product::readData(const string& filename) {
+    std::vector<Product> products;
+
+    std::ifstream file(filename);
+
+    if (file.is_open()) {
+        std::string line;
+        std::getline(file, line); // Skip header row.
+
+        while (std::getline(file, line)) {
+            Product product();
+
+            istringstream iss(line);
+            if (!(iss >> product.id >> product.name >> product.description
+                >> product.price >> product.quantity >> product.userRating)) {
+                throw std::runtime_error("Invalid file format.");
+            }
+
+            products.push_back(product);
+        }
+
+        file.close();
+    }
+    else {
+        throw std::runtime_error("Unable to open file for reading.");
+    }
+
+    return products;
+}
+/*
 vector<Product> getAllProducts()
 {
-    return // functions::getProductList<Product>();
+    return ; // functions::getProductList<Product>();
 }
+*/
+
 /* Watch::Watch() : Product(), brand(""), model("") {}
 Watch::Watch(string name, string description, double price, int quantity, float userRating, std::string brand, std::string model)
     : Product(name, description, price, quantity, userRating), brand(brand), model(model) {}
@@ -177,15 +211,22 @@ string User::getCreditCardNumber()
 
 UnRegisteredUser::UnRegisteredUser() {}
 
+/*
 RegisteredUser UnRegisteredUser::Login()
 {
-    return authenticateUser<RegisteredUser, UnRegisteredUser>(*this);
+    //return authenticateUser<RegisteredUser, UnRegisteredUser>(*this);
+    return;
 }
+*/
 
+/*
 bool UnRegisteredUser::signUp()
 {
-    return createUser(*this);
+    //return createUser(*this);
+    return;
 }
+*/
+
 void UnRegisteredUser::Greeting()
 {
     cout << "Welcome to our store!";
