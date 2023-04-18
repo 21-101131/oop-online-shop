@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+#pragma once
+#ifndef DB_FUNCTIONS_H
+#define DB_FUNCTIONS_H
+#endif
+=======
 #ifndef DB_FUNCTIONS_H
 #define DB_FUNCTIONS_H
 
@@ -46,3 +52,4 @@ protected:
 };
 
 #endif // DB_FUNCTIONS_H
+>>>>>>> a4e04a58654800e474ed77f353082d97cdd7879f
