@@ -18,12 +18,17 @@ using namespace std;
 using namespace sql;
 
 // for demonstration only. never save your password in the code!
+<<<<<<< HEAD
 // const string server = "sql8.freemysqlhosting.net";
+=======
+//const string server = "sql8.freemysqlhosting.net";
+>>>>>>> a4e04a58654800e474ed77f353082d97cdd7879f
 // const string username = "sql8613256";
 // const string password = "hwIw3Fjflu";
 
 class functions
 {
+<<<<<<< HEAD
 	static Connection *con;
 
 public:
@@ -55,6 +60,39 @@ protected:
 };
 
 // #endif // DB_FUNCTIONS_H
+=======
+    static Connection* con;
+
+public:
+    static void connectsql();
+    static void closeConnection();
+
+	template<typename T>
+    static vector<T> getProductList();
+
+protected:
+    static ResultSet* select(string tableName, string condition);
+    static ResultSet* getLastCreatedId(string tableName);
+
+	template<typename T>
+    static vector<T> getProductsInCart(int cartId);
+
+    static bool isProductInCart(int cartId, int productId);
+    static bool addProductInCart(int cartId, int productId, int count);
+    static bool removeFromCart(int cartId, int productId);
+
+	template<typename T>
+    static bool createUser(T user);
+
+	template<typename T>
+    static string savePayment(T payment);
+
+	template<typename R, typename U>
+    static R authenticateUser(U user);
+};
+
+//#endif // DB_FUNCTIONS_H
+>>>>>>> a4e04a58654800e474ed77f353082d97cdd7879f
 
 class Product : public functions
 {

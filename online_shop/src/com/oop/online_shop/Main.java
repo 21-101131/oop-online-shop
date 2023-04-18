@@ -11,7 +11,8 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		User u1 = new User();
 		DBConnection d1 = new DBConnection();
-		
+		//Cart c1 = new Cart();
+		//Beginning of the program 
 		System.out.println("*********************************************************************");
 		System.out.println("\t\t\tWelcome to TickTock Watches");
 		System.out.println("*********************************************************************");
@@ -30,9 +31,12 @@ public class Main {
 	    System.out.print("Chose a number: ");
 	    int number = scanner.nextInt();
 	    //for loop to show the products description
+	    Product p2 = null;
 	    for(Product product : productList) {
+	    	
 	    	if(number == product.getId())
 	    	{
+	    		p2 = product;
 	    		System.out.println("Description: " +product.getDescription());
 	    		System.out.println("Price: " + product.getPrice());
 	    		System.out.println("Quantity: " + product.getQuantity());
@@ -55,15 +59,30 @@ public class Main {
     	    //Redirecting to login 
     	    if(number3 == 1)
     	    {
+    	    	
+    	    	
     	    	System.out.println("Enter Email");
     	    	scanner = new Scanner(System.in);
     	    	String email = scanner.nextLine();
+    	    	u1.setEmail(email);
+    	    	
     	    	System.out.println("Enter Password");
     	    	scanner = new Scanner(System.in);
     	    	String pass = scanner.nextLine();
-    	    	u1.setEmail(email);
     	    	u1.setPass(pass);
-    	    	u1.Login();		
+
+    	    	u1 = u1.Login();
+
+    	    	if(u1 != null)
+    	    	{
+					Cart userCart = u1.getUserCart();
+    	    		userCart.add_toCart(p2);
+    	    	}
+    	    	
+    	    	
+    	    	
+    	    		
+    	    	
     	    }
     	    //Redirecting to sign up
     	    else if(number3 == 2)
@@ -78,15 +97,26 @@ public class Main {
     	    	String email = scanner.nextLine();
     	    	u1.setEmail(email);
     	    	
-    	    	System.out.println("Create password");
+    	    	System.out.println("Enter password");
     	    	scanner = new Scanner(System.in);
     	    	String pass = scanner.nextLine();
     	    	u1.setPass(pass);
+    	    	
+    	    	System.out.println("Enter address");
+    	    	scanner = new Scanner(System.in);
+    	    	String address = scanner.nextLine();
+    	    	u1.setAddress(address);
+    	    	
+    	    	System.out.println("Enter credit card number");
+    	    	scanner = new Scanner(System.in);
+    	    	String creditCardNumber = scanner.nextLine();
+    	    	u1.setCreditCardNumber(creditCardNumber);
+    	    	
     	    	u1.signUp();
     	    }
     	}
 	    //Redirects you if you want to continue shopping 
-    	/* else if(number2 == 2)
+    	else if(number2 == 2)
     	{
     		for(Product product : productList){
 				System.out.println(product.getId() + ") " + product.getName());
@@ -107,9 +137,9 @@ public class Main {
     	    	}
     	    } 
     	
-    	} */
+    	} 
 	    //else statement to redirect you to products if you pressed on a wrong number 
-    	/* else {
+    	else {
     		System.out.println("Invalid Number");
     		System.out.println("Press to 1 to add to cart");
     	    System.out.println("Press to 2 to continue shopping");
@@ -128,7 +158,7 @@ public class Main {
     			}
         	
         	}
-    	} */
+    	} 
 	    
 	     
 	    

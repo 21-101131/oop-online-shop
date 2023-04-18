@@ -11,9 +11,9 @@ public class DBConnection {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             DBConnection.con = DriverManager.getConnection(
-                    "jdbc:mysql://sql8.freemysqlhosting.net:3306/sql8612103",
-                    "sql8612103",
-                    "m624G5CJxr"
+                    "jdbc:mysql://sql8.freemysqlhosting.net:3306/sql8613256",
+                    "sql8613256",
+                    "hwIw3Fjflu"
             );
 
         } catch (Exception e) {
@@ -147,7 +147,7 @@ public class DBConnection {
                     rs.getString("name"),
                         "",
                         rs.getString("email"),
-                        rs.getString("adress"),
+                        rs.getString("userAdress"),
                         rs.getString("creditCardNumber")
                 );
                 result.setId(rs.getInt("id"));
@@ -209,6 +209,19 @@ public class DBConnection {
             e.printStackTrace();
         }
         return false;
+    }
+    protected static Cart getCartById(int cartId){
+        ResultSet cartSet = select(Cart.tableName, "id = "+cartId);
+        try{
+            if(cartSet.next())
+                return new Cart(
+                        cartSet.getInt("id")
+                );
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+
     }
 
     // PAYMENT FUNCTIONS

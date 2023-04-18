@@ -17,7 +17,7 @@ public class Product extends DBConnection {
         this.quantity = quantity;
         this.userRating = userRating;
     }
-    public int getId(){
+    public int getId(){	
         return id;
     }
     public String getName() {

@@ -8,6 +8,10 @@ public class Cart extends DBConnection{
     private ArrayList<Product> products; // this will be a function not an attribute
     private int userId;
 
+    public Cart(int id){
+        this.id = id;
+    }
+
     public double TotalPrice() {
         double totalPrice = 0.0;
         for (Product product : products) {

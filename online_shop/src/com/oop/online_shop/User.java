@@ -38,6 +38,10 @@ public class User extends DBConnection{
         this.userAddress = address;
     }
     
+    public void setCreditCardNumber(String creditCardNumber) {
+    	this.creditCardNumber = creditCardNumber;
+    }
+    
     public String getName() {
         return this.name;
     }
@@ -66,6 +70,10 @@ public class User extends DBConnection{
     
     public User Login() {
     	return authenticateUser(this);
+    }
+
+    public Cart getUserCart(){
+        return getCartById(this.cartId);
     }
 
    /*  public double show_totalPrice() {
