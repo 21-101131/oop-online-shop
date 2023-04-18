@@ -10,7 +10,7 @@ using namespace std;
 
 string Product::filename = "products.csv";
 
-Product::Product(){}
+Product::Product() {}
 Product::Product(int id, string nameproduct, string Descreiption, double Price, int Quantity, float UserRating)
 {
 	this->id = id;
@@ -21,61 +21,84 @@ Product::Product(int id, string nameproduct, string Descreiption, double Price, 
 	this->userRating = UserRating;
 }
 // Getter functions
-int Product::getId() const {
+int Product::getId() const
+{
 	return id;
 }
 
-string Product::getName() const {
+string Product::getName() const
+{
 	return name;
 }
 
-string Product::getDescription() const {
+string Product::getDescription() const
+{
 	return description;
 }
 
-double Product::getPrice() const {
+double Product::getPrice() const
+{
 	return price;
 }
 
-int Product::getQuantity() const {
+int Product::getQuantity() const
+{
 	return quantity;
 }
 
-float Product::getUserRating() const {
+float Product::getUserRating() const
+{
 	return userRating;
 }
 
 // Setter functions
-void Product::setId(int newId) {
+void Product::setId(int newId)
+{
 	id = newId;
 }
 
-void Product::setName(const string& newName) {
+void Product::setName(const string &newName)
+{
 	name = newName;
 }
 
-void Product::setDescription(const string& newDescription) {
+void Product::setDescription(const string &newDescription)
+{
 	description = newDescription;
 }
 
-void Product::setPrice(double newPrice) {
+void Product::setPrice(double newPrice)
+{
 	price = newPrice;
 }
 
-void Product::setQuantity(int newQuantity) {
+void Product::setQuantity(int newQuantity)
+{
 	quantity = newQuantity;
 }
 
-void Product::setUserRating(float newUserRating) {
+void Product::setUserRating(float newUserRating)
+{
 	userRating = newUserRating;
 }
 
-void Product::decreaseProductQuantity(int count) {
-
+bool Product::decreaseProductQuantity(int productId, int num)
+{
+	vector<Product> products = readData();
+	for (Product product : products)
+	{
+		if (productId == product.id)
+		{
+			product.quantity -= num;
+			return true;
+		}
+	}
+	return false;
 }
 
 // Functions for storing and reading products from file
-void Product::writeData(const vector<Product>& products) {
+void Product::writeData(const vector<Product> &products)
+{
 	/*
 	ofstream file(Product::filename);
 
@@ -99,24 +122,28 @@ void Product::writeData(const vector<Product>& products) {
 		throw runtime_error("Unable to open file for writing.");
 	}*/
 	ofstream csvFile(filename);
-	if (csvFile) {
+	if (csvFile)
+	{
 		csvFile << "id,name,description,price,quantity,user_rating" << endl;
-		for (const auto& product : products) {
+		for (const auto &product : products)
+		{
 			csvFile << product.getId() << ","
-				<< product.getName() << ","
-				<< product.getDescription() << ","
-				<< product.getPrice() << ","
-				<< product.getQuantity() << ","
-				<< product.getUserRating() << endl;
+					<< product.getName() << ","
+					<< product.getDescription() << ","
+					<< product.getPrice() << ","
+					<< product.getQuantity() << ","
+					<< product.getUserRating() << endl;
 		}
 		csvFile.close();
 	}
-	else {
+	else
+	{
 		cout << "Error opening file: " << filename << endl;
 	}
 }
 
-vector<Product> Product::readData() {
+vector<Product> Product::readData()
+{
 	/*vector<Product> products;
 
 	ifstream file(Product::filename);
@@ -144,10 +171,13 @@ vector<Product> Product::readData() {
 	*/
 	vector<Product> products;
 	ifstream inputFile(filename);
-	if (inputFile) {
+	if (inputFile)
+	{
 		string line;
-		if (getline(inputFile, line)) { // read header line, discard
-			while (getline(inputFile, line)) { // read data lines
+		if (getline(inputFile, line))
+		{ // read header line, discard
+			while (getline(inputFile, line))
+			{ // read data lines
 				stringstream ss(line);
 				string idStr, name, description, priceStr, quantityStr, ratingStr;
 				if (getline(ss, idStr, ',') &&
@@ -155,7 +185,8 @@ vector<Product> Product::readData() {
 					getline(ss, description, ',') &&
 					getline(ss, priceStr, ',') &&
 					getline(ss, quantityStr, ',') &&
-					getline(ss, ratingStr)) {
+					getline(ss, ratingStr))
+				{
 					int id = stoi(idStr);
 					double price = stod(priceStr);
 					int quantity = stoi(quantityStr);
@@ -173,7 +204,8 @@ vector<Product> Product::readData() {
 		}
 		inputFile.close();
 	}
-	else {
+	else
+	{
 		cout << "Error opening file: " << filename << endl;
 	}
 	return products;
