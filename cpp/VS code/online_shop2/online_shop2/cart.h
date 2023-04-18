@@ -4,6 +4,8 @@
 #include <string>
 #include <stdexcept>
 
+#include "productInCart.h"
+
 //#include "db.h"
 
 using namespace std;
@@ -23,6 +25,8 @@ class Cart {
 
 		// Setter functions
 		void setId(int newId);
+
+        bool add_toCart(Product selectedProduct, int quantity);
 
 		// Functions for storing and reading carts from file
 		static void writeData(const vector<Cart>& carts);

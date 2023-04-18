@@ -1,5 +1,6 @@
 #include "user.h"
 
+
 string User::filename = "users.txt";
 
 // Getter functions
@@ -58,6 +59,33 @@ void User::setCreditCardNumber(const string& newCreditCardNumber) {
 
 void User::setCartId(int newCartId) {
 	cartId = newCartId;
+}
+
+User* User::login() {
+	User* u = new User();
+	return u;
+}
+
+bool User::signUp(){
+	return true;
+}
+
+Cart User::getUserCart(){
+	Cart c;
+	return c;
+}
+
+vector<ProductInCart> User::getProductsInCart(){
+	vector<ProductInCart> v;
+	return v;
+}
+
+string User::pay(float total){
+	return "";
+}
+
+bool User::removeFromCart(int productId) {
+	return true;
 }
 
 // Functions for storing and reading users from file

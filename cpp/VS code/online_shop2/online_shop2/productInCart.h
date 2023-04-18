@@ -1,8 +1,10 @@
 #include <vector>
 #include <string>
 
-//#include "db.h"
+#include "product.h"
 
+//#include "db.h"
+using namespace std;
 //class ProductInCart: DB{
 class ProductInCart{
 private:
@@ -10,6 +12,7 @@ private:
     int cartId;
     int productId;
     int count;
+    Product product;
     static const std::string filename;
 
 public:
@@ -21,6 +24,7 @@ public:
     int getProductId() const;
 
     int getCount() const;
+    Product getProduct() const;
 
     // Setter functions
     void setId(int newId);

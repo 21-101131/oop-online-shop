@@ -1,3 +1,4 @@
+#include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
@@ -7,7 +8,7 @@
 
 using namespace std;
 
-string Product::filename = "products.txt";
+string Product::filename = "products.csv";
 
 Product::Product(){}
 Product::Product(int id, string nameproduct, string Descreiption, double Price, int Quantity, float UserRating)
@@ -69,8 +70,13 @@ void Product::setUserRating(float newUserRating) {
 	userRating = newUserRating;
 }
 
+void Product::decreaseProductQuantity(int count) {
+
+}
+
 // Functions for storing and reading products from file
 void Product::writeData(const vector<Product>& products) {
+	/*
 	ofstream file(Product::filename);
 
 	if (file.is_open()) {
@@ -91,11 +97,27 @@ void Product::writeData(const vector<Product>& products) {
 	}
 	else {
 		throw runtime_error("Unable to open file for writing.");
+	}*/
+	ofstream csvFile(filename);
+	if (csvFile) {
+		csvFile << "id,name,description,price,quantity,user_rating" << endl;
+		for (const auto& product : products) {
+			csvFile << product.getId() << ","
+				<< product.getName() << ","
+				<< product.getDescription() << ","
+				<< product.getPrice() << ","
+				<< product.getQuantity() << ","
+				<< product.getUserRating() << endl;
+		}
+		csvFile.close();
+	}
+	else {
+		cout << "Error opening file: " << filename << endl;
 	}
 }
 
 vector<Product> Product::readData() {
-	vector<Product> products;
+	/*vector<Product> products;
 
 	ifstream file(Product::filename);
 	if (file.is_open()) {
@@ -119,6 +141,40 @@ vector<Product> Product::readData() {
 	else {
 		throw runtime_error("Unable to open file for reading.");
 	}
-
+	*/
+	vector<Product> products;
+	ifstream inputFile(filename);
+	if (inputFile) {
+		string line;
+		if (getline(inputFile, line)) { // read header line, discard
+			while (getline(inputFile, line)) { // read data lines
+				stringstream ss(line);
+				string idStr, name, description, priceStr, quantityStr, ratingStr;
+				if (getline(ss, idStr, ',') &&
+					getline(ss, name, ',') &&
+					getline(ss, description, ',') &&
+					getline(ss, priceStr, ',') &&
+					getline(ss, quantityStr, ',') &&
+					getline(ss, ratingStr)) {
+					int id = stoi(idStr);
+					double price = stod(priceStr);
+					int quantity = stoi(quantityStr);
+					float rating = stof(ratingStr);
+					Product product;
+					product.setId(id);
+					product.setName(name);
+					product.setDescription(description);
+					product.setPrice(price);
+					product.setQuantity(quantity);
+					product.setUserRating(rating);
+					products.push_back(product);
+				}
+			}
+		}
+		inputFile.close();
+	}
+	else {
+		cout << "Error opening file: " << filename << endl;
+	}
 	return products;
 }

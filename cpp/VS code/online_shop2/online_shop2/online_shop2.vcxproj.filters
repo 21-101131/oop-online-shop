@@ -27,10 +27,10 @@
     <ClInclude Include="product.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="productInCart.h">
+    <ClInclude Include="user.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="user.h">
+    <ClInclude Include="productInCart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

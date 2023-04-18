@@ -19,6 +19,9 @@ void Cart::setId(int newId) {
 	id = newId;
 }
 
+bool Cart::add_toCart(Product selectedProduct, int quantity) {
+	return true;
+}
 
 // Functions for storing and reading carts from file
 void Cart::writeData(const vector<Cart>& carts) {

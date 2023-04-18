@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <sstream>
 
-//#include "db.h"
+#include "cart.h"
 
 using namespace std;
 
@@ -44,6 +44,16 @@ public:
         void setCreditCardNumber(const string& newCreditCardNumber);
 
         void setCartId(int newCartId);
+
+        User* login();
+        bool signUp();
+        Cart getUserCart();
+
+        vector<ProductInCart> getProductsInCart();
+
+        string pay(float total);
+
+        bool removeFromCart(int productId);
 
         // Functions for storing and reading users from file
         static void writeData(const vector<User>& users);

@@ -1,5 +1,0 @@
-ID	Name	Description	Price	Quantity	User Rating
-0	test	test	2	3	4
-1	test2	test	2	3	4
-2	test3	test	2	3	4
-3	test4	test	2	3	4

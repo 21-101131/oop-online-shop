@@ -25,6 +25,10 @@ int ProductInCart::getCount() const {
     return count;
 }
 
+Product ProductInCart::getProduct() const {
+    return product;
+}
+
 // Setter functions
 void ProductInCart::setId(int newId) {
     id = newId;
