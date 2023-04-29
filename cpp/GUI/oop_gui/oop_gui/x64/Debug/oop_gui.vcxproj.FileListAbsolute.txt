@@ -1,6 +1,0 @@
-C:\Users\amare\source\repos\oop_gui\oop_gui\x64\Debug\oop_gui.vcxproj.AssemblyReference.cache
-C:\Users\amare\source\repos\oop_gui\oop_gui\x64\Debug\oop_gui.vcxproj.SuggestedBindingRedirects.cache
-C:\Users\amare\source\repos\oop_gui\oop_gui\x64\Debug\oop_gui.vcxproj.GenerateResource.cache
-C:\Users\amare\source\repos\oop_gui\oop_gui\x64\Debug\oopgui.Home.resources
-C:\Users\amare\source\repos\oop_gui\oop_gui\x64\Debug\oopgui.Login.resources
-C:\Users\amare\source\repos\oop_gui\oop_gui\x64\Debug\oopgui.Products.resources
