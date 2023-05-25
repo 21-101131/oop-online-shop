@@ -91,28 +91,6 @@ bool Product::decreaseProductQuantity(int num)
 // Functions for storing and reading products from file
 void Product::writeData(const vector<Product> &products)
 {
-	/*
-	ofstream file(Product::filename);
-
-	if (file.is_open()) {
-		// Write header row
-		file << "ID\tName\tDescription\tPrice\tQuantity\tUser Rating\n";
-
-		// Write each product to file
-		for (const auto& product : products) {
-			file << product.getId() << '\t'
-				<< product.getName() << '\t'
-				<< product.getDescription() << '\t'
-				<< product.getPrice() << '\t'
-				<< product.getQuantity() << '\t'
-				<< product.getUserRating() << '\n';
-		}
-
-		file.close();
-	}
-	else {
-		throw runtime_error("Unable to open file for writing.");
-	}*/
 	ofstream csvFile(filename);
 	if (csvFile)
 	{
@@ -136,31 +114,6 @@ void Product::writeData(const vector<Product> &products)
 
 vector<Product> Product::readData()
 {
-	/*vector<Product> products;
-
-	ifstream file(Product::filename);
-	if (file.is_open()) {
-		string line;
-		getline(file, line); // Skip header row.
-
-		while (getline(file, line)) {
-			Product product;
-
-			istringstream iss(line);
-			if (!(iss >> product.id >> product.name >> product.description
-				>> product.price >> product.quantity >> product.userRating)) {
-				throw runtime_error("Invalid file format.");
-			}
-
-			products.push_back(product);
-		}
-
-		file.close();
-	}
-	else {
-		throw runtime_error("Unable to open file for reading.");
-	}
-	*/
 	vector<Product> products;
 	ifstream inputFile(filename);
 	if (inputFile)

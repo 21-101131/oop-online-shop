@@ -1,0 +1,14 @@
+Refactoring Techniques Used:
+
+Composing Methods
+    1 - Extract Method =>
+    2 - Replace Method with Method Object => transformed print choice functions into the class Selection
+
+Organizing Data
+    3 - Encapsulate Field => used in all classes of data such as(product, payment, ..)
+
+
+Design Patterns Used:
+    1 - MVC => Main Management of the project
+    2 - Singleton => in the model class, ObjectPool and Utils class
+    3 - Object Pool => for Selection class

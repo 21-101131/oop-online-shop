@@ -6,16 +6,15 @@
 // #include "db.h"
 
 #include "payment.h"
+#include "ProductInfo.h"
 
 using namespace std;
 
 // class Product: DB {
-class Product: public BaseEntity
+class Product: public BaseEntity , public ProductInfo
 {
 private:
-    string name;
-    string description;
-    double price;
+   
     int quantity;
     float userRating;
     static string filename;
@@ -24,16 +23,12 @@ public:
     Product();
     Product(int id, string nameproduct, string Descreiption, double Price, int Quantity, float UserRating);
     // Getter functions
-    string getName() const;
-    string getDescription() const;
-    double getPrice() const;
+   
     int getQuantity() const;
     float getUserRating() const;
 
     // Setter functions
-    void setName(const string &newName);
-    void setDescription(const string &newDescription);
-    void setPrice(double newPrice);
+   
     void setQuantity(int newQuantity);
     void setUserRating(float newUserRating);
     bool decreaseProductQuantity(int num);

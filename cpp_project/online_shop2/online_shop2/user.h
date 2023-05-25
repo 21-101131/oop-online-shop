@@ -3,47 +3,33 @@
 #include <string>
 #include <stdexcept>
 #include <sstream>
+#include "UserPersonalInfo.h"
 
 #include "cart.h"
 
 using namespace std;
 
 //class User:DB {
-class User : public BaseEntity{
+class User : public BaseEntity , public UserPersonalInfo {
 private:
-    string name;
-    string password;
-    string email;
-    string userAddress;
-    string creditCardNumber;
+    
     int cartId;
     static string filename;
+    string password;
 
 public:
 		// Getter functions
-        string getName() const;
-        string getPassword() const;
-        string getEmail() const;
-        string getUserAddress() const;
-        string getCreditCardNumber() const;
-        int getCartId() const;
-
-        // Setter functions
-        void setName(const string newName);
-
+       
+       
         void setPassword(const string& newPassword);
-
-        void setEmail(const string& newEmail);
-
-        void setUserAddress(const string& newUserAddress);
-
-        void setCreditCardNumber(const string& newCreditCardNumber);
 
         void setCartId(int newCartId);
 
         void login(User* res);
         bool signUp();
         Cart getUserCart();
+        string getPassword() const;
+        int getCartId() const;
 
         vector<ProductInCart> getProductsInCart();
 

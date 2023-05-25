@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "user.h"
+#include "Selection.h"
 
 using namespace std;
 
@@ -32,7 +33,7 @@ class Main {
 		cin >> number;
 		switch (number){
 			case 1:
-				cout << user->pay((float)total) << endl;
+				cout << user->pay((float)total) << endl << "Products will arrive you at " << user->getUserAddress();
 				for (ProductInCart productInCart : productsInCart) {
 					productInCart.getProduct().decreaseProductQuantity(productInCart.getCount());
 				}
@@ -106,10 +107,29 @@ public:
 		}
 	}
 
+    static void printChoice(const int choiceNum, const string choice){
+        cout << "Press " << choiceNum << " to " << choice << endl;
+    }
+
+    static void printLoginOrSignup() {
+        printChoice(1, "Login");
+        printChoice(2, "Signup");
+    }
+
+    static void introduction(){
+        cout << "*********************************************************************" << endl
+             << "\t\t\tWelcome to TickTock Watches" << endl
+             << "*********************************************************************" << endl
+             << "\"\"" << endl;
+
+        printLoginOrSignup();
+        printChoice(3, "Start shopping");
+
+        cout << "Choose a Number: ";
+    }
 	private:
 	static void userLoginOrSignup(){
-		cout << "Press 1 to Login" << endl;
-		cout << "Press 2 to Signup" << endl;
+        printLoginOrSignup();
 
 		int dec;
 		cin >> dec;
@@ -117,6 +137,7 @@ public:
 		if(dec == 1) userLogin();
 		else if (dec == 2) userSignup();
 	}
+
 	static void userAddToCart(Product selectedProduct){
 		cout << selectedProduct.getQuantity() << " Left in stock." << endl;
 		cout << "How many do you want? " << endl;
@@ -182,9 +203,9 @@ public:
 	static void loggedIn(){
 		while(true){
 			cout << "\nWhat do you want to do? " << endl;
-			cout << "1. Continue shopping" << endl;
-			cout << "2. Show cart" << endl;
-			cout << "3. Logout" << endl;
+            printChoice(1, "Continue shopping");
+            printChoice(2, "Show cart");
+            printChoice(3, "Logout");
 
 			int decision;
 			cin >> decision;
@@ -212,16 +233,7 @@ User* Main::user = nullptr;
 
 
 int main() {
-	cout << "*********************************************************************" << endl
-		<< "\t\t\tWelcome to TickTock Watches" << endl
-		<< "*********************************************************************" << endl
-		<< "\"\"" << endl;
 
-		cout << "1. Login" << endl;
-		cout << "2. Signup" << endl;
-		cout << "3. Start shopping" << endl;
-
-		cout << "Choose a Number: ";
 
 		int decision;
 		cin >> decision;
@@ -243,24 +255,5 @@ int main() {
 				break;
 		}
 
-	/*
-	// cout << "working!";
-*/
-	/*
-	vector<Product> v = Product::readData();
-	for (Product p : v) {
-		cout << p.getName() << endl;
-	}
-	*/
-    /*
-	Product p1(0, "Rolex", "very good watch", 100, 3, 4.9);
-	Product p2(1, "Casio W-737H", "sports watch", 30, 7, 3);
 
-	vector<Product> v = {
-		p1, p2
-	};
-
-	Product::writeData(v);
-
-	*/
 }
