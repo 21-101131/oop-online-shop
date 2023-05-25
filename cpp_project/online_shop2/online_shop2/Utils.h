@@ -4,7 +4,9 @@
 
 #ifndef ONLINE_SHOP2_UTILS_H
 #define ONLINE_SHOP2_UTILS_H
+#include <vector>
 
+using std::vector;
 // Note: This is a singleton
 class Utils {
     static Utils* instance;
@@ -12,6 +14,7 @@ class Utils {
 public:
     static Utils* getInstance();
     int getValidNum(int to, int from = 0) const;
+
 };
 
 

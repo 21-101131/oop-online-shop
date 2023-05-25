@@ -15,7 +15,7 @@ class Selection{
     Selection();
 public:
     friend class ObjectPool<Selection>;
-    void addChoice(const string choice, function<void(User*)> callback , const int num = 0);
+    void addChoice(const string choice, function<void(User*)> callback = [](User* user){}, const int num = 0);
 
     void handleUserChoice(User* user);
 

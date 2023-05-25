@@ -12,6 +12,7 @@ public:
     void proceedPayment(User* user);
     void removeProductFromCart(User* user);
     double getTotal(vector<ProductInCart> productsInCart);
+    vector<Product> getProductList() const;
 };
 
 #endif //ONLINE_SHOP2_MODEL_H

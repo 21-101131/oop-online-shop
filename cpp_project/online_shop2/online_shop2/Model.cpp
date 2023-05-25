@@ -40,3 +40,7 @@ void Model::removeProductFromCart(User* user){
     cin >> number;
     if(user->removeFromCart(productsInCart[number-1].getProduct().getId())) cout << "Product removed successfully!" << endl;
 }
+
+vector<Product> Model::getProductList() const {
+    return Product::readData();
+}

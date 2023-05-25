@@ -19,4 +19,4 @@ add_executable(online_shop2
         productInCart.cpp
         productInCart.h
         user.cpp
-        user.h Selection.cpp Selection.h View.cpp View.h Controller.cpp Controller.h Model.cpp Model.h trash.cpp ObjectPool.h ObjectPool.cpp Utils.cpp Utils.h)
+        user.h Selection.cpp Selection.h View.cpp View.h Controller.cpp Controller.h Model.cpp Model.h ObjectPool.h ObjectPool.cpp Utils.cpp Utils.h)
