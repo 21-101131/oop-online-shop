@@ -56,14 +56,15 @@ void User::setCartId(int newCartId) {
 	cartId = newCartId;
 }
 
-void User::login(User* res) {
+User* User::login(User* res) {
 	vector<User> users = readData();
 	for (auto user : users) {
 		if (user.email == email && user.password == password) {
 			res->cartId = user.cartId;
+			return res;
 		}
 	}
-	res = nullptr;
+	return nullptr;
 }
 
 bool User::signUp(){

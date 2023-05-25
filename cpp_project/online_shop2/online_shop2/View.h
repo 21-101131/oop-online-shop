@@ -5,6 +5,7 @@
 #ifndef ONLINE_SHOP2_VIEW_H
 #define ONLINE_SHOP2_VIEW_H
 #include "Selection.h"
+#include "Utils.h"
 #include <map>
 
 //#include "productInCart.h"

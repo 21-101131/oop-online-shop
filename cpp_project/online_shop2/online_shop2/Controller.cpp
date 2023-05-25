@@ -3,7 +3,7 @@
 //
 
 #include "Controller.h"
-#include "user.h"
+//#include "user.h"
 #include <iostream>
 #include <functional>
 
@@ -15,45 +15,49 @@ Controller::Controller(){
     model = Model::getInstance();
 }
 
-void Controller::handleCart(User* user) {
-    view->displayProductsInCart(user->getProductsInCart());
+void Controller::handleCart(User** user) {
+    view->displayProductsInCart((*user)->getProductsInCart());
+    if ((*user)->getProductsInCart().size() > 0){
+        ObjectPool<Selection>* selectionPool = ObjectPool<Selection>::getInstance();
+        Selection* actionSelect = selectionPool->acquireObject();
+        function<void(User**)> proceedPaymentCallback = bind(&Model::proceedPayment, model, placeholders::_1);
+        actionSelect->addChoice("Proceed Payment", proceedPaymentCallback);
 
-    ObjectPool<Selection>* selectionPool = ObjectPool<Selection>::getInstance();
-    Selection* actionSelect = selectionPool->acquireObject();
-    function<void(User*)> proceedPaymentCallback = bind(&Model::proceedPayment, model, placeholders::_1);
-    actionSelect->addChoice("Proceed Payment", proceedPaymentCallback);
-
-    function<void(User*)> removeProductCallback = bind(&Model::removeProductFromCart, model, placeholders::_1);
-    actionSelect->addChoice("Remove product from cart", removeProductCallback);
-    actionSelect->handleUserChoice(user);
+        function<void(User**)> removeProductCallback = bind(&Model::removeProductFromCart, model, placeholders::_1);
+        actionSelect->addChoice("Remove product from cart", removeProductCallback);
+        actionSelect->handleUserChoice(user);
+    }
 }
 
-void Controller::loginUser(User* user) {
+void Controller::loginUser(User** user) {
     cout << "Login Please:" << endl;
     do {
-        user = new User();
+        *user = new User();
 
-        view->setLoginCredentials(user);
-        user->setEmail(c.first);
-        user->setPassword(c.second);
-        user->login(user);
+        view->setLoginCredentials(*user);
+        /*
+        (*user)->setEmail(c.first);
+        (*user)->setPassword(c.second);
+        */
 
-        if (!user) cout << "Wrong email or password. Try Again: " << endl;
-    } while (!user);
+        *user = (*user)->login(*user);
+
+        if (!(*user)) cout << "Wrong email or password. Try Again: " << endl;
+    } while (!(*user));
     cout << "Logged in successfully!\n" << endl;
 }
 
-void Controller::signupUser(User* user){
-    user = new User();
-    view->setSignupCredentials(user);
-    if(user->signUp()) {
+void Controller::signupUser(User** user){
+    *user = new User();
+    view->setSignupCredentials(*user);
+    if((*user)->signUp()) {
         cout << "Signed up successfully!\n" << endl;
         loginUser(user);
     }
 }
 
-void Controller::addProductToCart(User* user){
-    if (!user)  {
+void Controller::addProductToCart(User** user){
+    if (!(*user))  {
         ObjectPool<Selection>* selectionPool = ObjectPool<Selection>::getInstance();
         Selection* authSelect = selectionPool->acquireObject();
         authSelect->addChoice("Login",  bind(&Controller::loginUser, this, placeholders::_1));
@@ -62,14 +66,16 @@ void Controller::addProductToCart(User* user){
     }
 
     int wantedQuantity = view->getProductWantedQuantity(selectedProduct.getQuantity());
-
-    Cart userCart = user->getUserCart();
-    if (userCart.add_toCart(selectedProduct, wantedQuantity)) {
-        cout << selectedProduct.getName() << " Added to Cart Successfully" << endl;
-    } else cout << "Unknown error adding product to cart" << endl;
+    if (wantedQuantity) {
+        Cart userCart = (*user)->getUserCart();
+        if (userCart.add_toCart(selectedProduct, wantedQuantity)) {
+            cout << selectedProduct.getName() << " Added to Cart Successfully" << endl;
+        }
+        else cout << "Unknown error adding product to cart" << endl;
+    }
 }
 
-void Controller::shop(User* user) {
+void Controller::shop(User** user) {
     selectedProduct = view->showProductListAndSelectProduct(model->getProductList());
 
     ObjectPool<Selection>* selectionPool = ObjectPool<Selection>::getInstance();
@@ -81,13 +87,15 @@ void Controller::shop(User* user) {
     actionSelect->handleUserChoice(user);
 }
 
-void Controller::loggedInUser() {
-    while(true){
+void Controller::loggedInUser(User** user) {
+    while (true) {
         ObjectPool<Selection>* selectionPool = ObjectPool<Selection>::getInstance();
         Selection* actionSelect = selectionPool->acquireObject();
 
-        actionSelect->addChoice("Go shopping", bind(&Controller::addProductToCart, this, placeholders::_1));
+        actionSelect->addChoice("Go shopping", bind(&Controller::shop, this, placeholders::_1));
         actionSelect->addChoice("Show cart", bind(&Controller::handleCart, this, placeholders::_1));
+        actionSelect->handleUserChoice(user);
+    }
 }
 
 

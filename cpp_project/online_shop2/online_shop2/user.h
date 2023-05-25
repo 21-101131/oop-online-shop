@@ -10,35 +10,48 @@
 using namespace std;
 
 //class User:DB {
-class User : public BaseEntity , public UserPersonalInfo {
+class User : public BaseEntity, public UserPersonalInfo {
 private:
-    
+
     int cartId;
     static string filename;
     string password;
 
 public:
-		// Getter functions
-       
-       
-        void setPassword(const string& newPassword);
+    // Getter functions
+    virtual string getName() const override;
 
-        void setCartId(int newCartId);
+    virtual string getEmail() const override;
+    virtual string getUserAddress() const override;
+    virtual string getCreditCardNumber() const override;
+    // Setter functions
+    virtual void setName(const string newName) override;
 
-        void login(User* res);
-        bool signUp();
-        Cart getUserCart();
-        string getPassword() const;
-        int getCartId() const;
+    virtual void setEmail(const string& newEmail) override;
 
-        vector<ProductInCart> getProductsInCart();
+    virtual void setUserAddress(const string& newUserAddress) override;
 
-        string pay(float total);
+    virtual void setCreditCardNumber(const string& newCreditCardNumber) override;
 
-        bool removeFromCart(int productId);
 
-        // Functions for storing and reading users from file
-        static void writeData(const vector<User>& users);
-        static vector<User> readData();
+    void setPassword(const string& newPassword);
+
+    void setCartId(int newCartId);
+
+    User* login(User* res);
+    bool signUp();
+    Cart getUserCart();
+    string getPassword() const;
+    int getCartId() const;
+
+    vector<ProductInCart> getProductsInCart();
+
+    string pay(float total);
+
+    bool removeFromCart(int productId);
+
+    // Functions for storing and reading users from file
+    static void writeData(const vector<User>& users);
+    static vector<User> readData();
 
 };

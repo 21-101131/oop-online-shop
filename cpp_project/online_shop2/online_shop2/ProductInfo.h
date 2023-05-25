@@ -4,6 +4,7 @@ using namespace std;
 
 class ProductInfo
 {
+protected:
     string name;
     string description;
     double price;

@@ -11,24 +11,23 @@
 #include "Model.h"
 
 class Controller {
-    User* user;
     View* view;
     Model* model;
     Product selectedProduct;
 public:
     Controller();
 
-    void handleCart(User* user);
+    void handleCart(User** user);
 
-    void loginUser(User* user);
+    void loginUser(User** user);
 
-    void signupUser(User* user);
+    void signupUser(User** user);
 
-    void addProductToCart(User* user);
+    void addProductToCart(User** user);
 
-    void shop(User* user);
+    void shop(User** user);
 
-    void loggedInUser();
+    void loggedInUser(User** user);
 };
 
 

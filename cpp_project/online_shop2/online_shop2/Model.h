@@ -9,8 +9,8 @@ class Model {
 public:
     static Model* getInstance();
 
-    void proceedPayment(User* user);
-    void removeProductFromCart(User* user);
+    void proceedPayment(User** user);
+    void removeProductFromCart(User** user);
     double getTotal(vector<ProductInCart> productsInCart);
     vector<Product> getProductList() const;
 };

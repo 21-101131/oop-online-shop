@@ -4,6 +4,7 @@ using namespace std;
 
 class UserPersonalInfo
 {
+protected:
     string name;
     string email;
     string userAddress;

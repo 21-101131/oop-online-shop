@@ -12,7 +12,7 @@ class BaseEntity {
 
 public:
 	BaseEntity();
-	BaseEntity(int, string, vector<string>);
+	BaseEntity(int);
 	void setId(int _id);
 	int getId() const;
 

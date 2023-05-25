@@ -141,19 +141,35 @@
   <ItemGroup>
     <ClInclude Include="baseEntity.h" />
     <ClInclude Include="cart.h" />
+    <ClInclude Include="Controller.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="payment.h" />
     <ClInclude Include="product.h" />
     <ClInclude Include="productInCart.h" />
+    <ClInclude Include="ProductInfo.h" />
+    <ClInclude Include="Selection.h" />
     <ClInclude Include="user.h" />
+    <ClInclude Include="UserPersonalInfo.h" />
+    <ClInclude Include="Utils.h" />
+    <ClInclude Include="View.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="baseEntity.cpp" />
     <ClCompile Include="cart.cpp" />
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="payment.cpp" />
     <ClCompile Include="product.cpp" />
     <ClCompile Include="productInCart.cpp" />
+    <ClCompile Include="ProductInfo.cpp" />
+    <ClCompile Include="Selection.cpp" />
     <ClCompile Include="user.cpp" />
+    <ClCompile Include="UserPersonalInfo.cpp" />
+    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="View.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

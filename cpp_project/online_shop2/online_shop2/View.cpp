@@ -58,7 +58,12 @@ void View::setSignupCredentials(User* user) const {
 }
 
 int View::getProductWantedQuantity(int availableAmount) const{
+    if (!availableAmount) {
+        cout << "Out of stock!\n";
+        return 0;
+    }
     cout << availableAmount << " Left in stock." << endl;
+    
     cout << "How many do you want? " << endl;
 
     Utils* util = Utils::getInstance();
@@ -85,10 +90,8 @@ Product View::showProductListAndSelectProduct(vector<Product> productList) const
     }
 
     //choosing a number to show the product description
-    cout << "Chose a number ( enter 0 to go back ): " << endl;
+    cout << "Chose a number: " << endl;
     cin >> number;
-
-    if (number == 0) return;
 
     //for loop to show the products description
     Product selectedProduct;

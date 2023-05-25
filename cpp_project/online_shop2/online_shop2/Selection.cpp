@@ -14,12 +14,12 @@ using std::cin;
 
 Selection::Selection():largestNum(0){}
 
-void Selection::addChoice(const string choice, function<void(User*)> callback , const int num){
+void Selection::addChoice(const string choice, function<void(User**)> callback , const int num){
     int key = (num == 0) ? ++largestNum : num;
     choices.insert(make_pair(key , make_pair(choice, callback)));
 }
 
-void Selection::handleUserChoice(User* user) {
+void Selection::handleUserChoice(User** user) {
     cout << "Choose a Number:\n";
     for(auto i : choices){
         cout << "Press " << i.first << " to " << i.second.first << '\n';
