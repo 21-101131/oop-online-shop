@@ -1,7 +1,9 @@
 #include "View.h"
 
-#include<iostream>
 
+
+#include<iostream>
+#include <limits>
 using namespace std;
 
 void View::displayProductsInCart(vector<ProductInCart> productsInCart){
@@ -34,26 +36,31 @@ void View::setSignupCredentials(User* user) const {
     cout << "Write your full name" << endl;
     string name;
     cin >> name;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     user->setName(name);
 
     cout << "Write your Email" << endl;
     string email;
     cin >> email;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     user->setEmail(email);
 
     cout << "Enter password" << endl;
     string password;
     cin >> password;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     user->setPassword(password);
 
     cout << "Enter address" << endl;
     string address;
     cin >> address;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     user->setUserAddress(address);
 
     cout << "Enter credit card number" << endl;
     string creditCardNumber;
     cin >> creditCardNumber;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     user->setCreditCardNumber(creditCardNumber);
 }
 
